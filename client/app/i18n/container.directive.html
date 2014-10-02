@@ -1,0 +1,9 @@
+<div class="row panel">
+  <h3>{{ container.name }}</h3>
+  <div>
+    {{ container.comment }}
+  </div>
+  <div ng-repeat="value in container.values">
+    <div trsl-value="value"/>
+  </div>
+</div>
