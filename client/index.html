@@ -18,6 +18,7 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/arethusa.concat.min.css">
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -59,8 +60,11 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
+          <script src="app/i18n/container.directive.js"></script>
+          <script src="app/i18n/i18n.controller.js"></script>
+          <script src="app/i18n/i18n.js"></script>
+          <script src="app/i18n/trsl.directive.js"></script>
+          <script src="app/i18n/trsl_value.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
