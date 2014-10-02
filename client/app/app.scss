@@ -24,3 +24,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // Component styles are injected through grunt
 // injector
 // endinjector
+
+.dirty-bg {
+  background-color: #FFD5D5 !important;
+}
+
+.clean-bg {
+  background-color: rgb(221, 255, 211) !important;
+}
