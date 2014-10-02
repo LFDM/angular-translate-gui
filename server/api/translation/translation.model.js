@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var TranslationSchema = new Schema({
   translation: String,
-  language: String,
+  lang: String,
   dirty: { type: Boolean, default: true },
   updatedAt: { type: Date, default: Date.now }
 });
