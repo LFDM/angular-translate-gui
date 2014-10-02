@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    translations = require('../translation/translation.model');
 
 var ValueSchema = new Schema({
   name: String,
@@ -9,7 +10,7 @@ var ValueSchema = new Schema({
   exampleUrl: String,
   example: String,
   dirty: { type: Boolean, default: false },
-  translations: [{ type: Schema.Types.ObjectId, ref: 'Translations' }],
+  translations: [ translations.schema ],
 });
 
 module.exports = mongoose.model('Value', ValueSchema);
