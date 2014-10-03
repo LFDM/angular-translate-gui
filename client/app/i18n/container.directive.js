@@ -70,6 +70,14 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           cont.dirty = true;
           scope.deferredUpdate();
         };
+
+        scope.remove = function() {
+          // Ask for confirmation
+          var conts = scope.containers;
+          var i = conts.indexOf(scope.container);
+          conts.splice(i, 1);
+          scope.container.$remove();
+        };
       },
       templateUrl: 'app/i18n/container.directive.html'
     };

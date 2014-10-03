@@ -2,9 +2,10 @@
   <p>
     <div>
       Container:
-      <span blind-input ng-model="container.name"/>
+      <span blind-input ng-model="container.name" placeholder="Enter a container name..."/>
       <span class="button micro" ng-click="addValue(container)">Add value</span>
       <span class="button micro" ng-click="addSubContainer(container)">Add sub-container</span>
+      <span class="button micro alert" ng-click="remove()"><strong>Remove</strong></span>
     </div>
   </p>
   <div>
