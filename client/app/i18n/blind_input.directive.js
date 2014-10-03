@@ -6,8 +6,9 @@ angular.module('arethusaTranslateGuiApp').directive('blindInput', [
     return {
       restrict: 'AE',
       scope: {
-        model: '&ngModel',
-        type: '@'
+        model: '=ngModel',
+        type: '@',
+        placeholder: '@'
       },
       link: function(scope, element, attrs) {
         var parent = scope.$parent,
