@@ -1,9 +1,9 @@
 <div class="row panel" ng-class="statusClass">
-  <h3>{{ container.name }}</h3>
+  <p>Container: <input ng-model="container.name" ng-click="deferredUpdate()"/></p>
   <div>
     {{ container.comment }}
   </div>
-  <div ng-repeat="value in container.values">
+  <div style="margin-left: 1rem" ng-repeat="value in container.values">
     <div trsl-value="value"/>
   </div>
 </div>
