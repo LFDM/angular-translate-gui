@@ -50,5 +50,12 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     $scope.toggleMode = function() {
       $scope.adminMode = !$scope.adminMode;
     };
+
+    $scope.addContainer = function() {
+      var cont = $scope.newContainer();
+      cont.$save(function() {
+        $scope.containers.push(cont);
+      });
+    };
   }
 ]);
