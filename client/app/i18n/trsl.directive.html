@@ -1,10 +1,11 @@
 <table>
   <tr>
-    <td>
-      {{ trsl.lang }}
+    <td style="width: 3rem">
+      <strong>{{ trsl.lang }}</strong>
     </td>
     <td>
       <input
+        ng-change="trackChange()"
         type="textarea"
         style="width: 50rem"
         ng-model="trsl.translation"/>
