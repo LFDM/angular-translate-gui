@@ -5,9 +5,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
     return {
       restrict: 'A',
       link: function(scope) {
-        scope.$on('mainDirty', function() {
-          scope.value.dirty = true;
-        });
+        scope.addMainDirtyListener(scope, 'value');
 
         scope.$on('clean', function() {
           if (scope.allClean(scope.value.translations)) {

@@ -16,15 +16,13 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
 
         if (!main) {
           scope.$watch('trsl.dirty', function(newVal) {
-            var cl = newVal ? [DIRTY, CLEAN] : [CLEAN, DIRTY];
+            var classes = [DIRTY, CLEAN];
+            var cl = newVal ? classes : classes.reverse();
             table.addClass(cl[0]);
             table.removeClass(cl[1]);
           });
 
-          scope.$on('mainDirty', function() {
-            console.log('in broadcast');
-            scope.trsl.dirty = true;
-          });
+          scope.addMainDirtyListener(scope, 'trsl');
         } else {
           scope.trsl.dirty = false;
         }

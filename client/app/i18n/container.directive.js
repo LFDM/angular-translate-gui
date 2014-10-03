@@ -33,6 +33,12 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           }
           scope.container.$update();
         });
+
+        scope.addMainDirtyListener = function(childScope, property) {
+          childScope.$on('mainDirty', function() {
+            childScope[property].dirty = true;
+          });
+        };
       },
       templateUrl: 'app/i18n/container.directive.html'
     };
