@@ -62,11 +62,13 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         };
 
         scope.addValue = function() {
+          var cont = scope.container;
           var trsls = _.map(scope.languages, function(lang) {
-            return { lang: lang };
+            return { lang: lang, dirty: true };
           });
-          scope.container.values.push({ translations: trsls });
-          //scope.deferredUpdate();
+          cont.values.push({ translations: trsls, dirty: true });
+          cont.dirty = true;
+          scope.deferredUpdate();
         };
       },
       templateUrl: 'app/i18n/container.directive.html'
