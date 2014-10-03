@@ -14,6 +14,23 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
             scope.value.dirty = true;
           }
         });
+
+        function changeAllStatus(bool) {
+          var trsls = scope.value.translations;
+          for (var i = trsls.length - 1; i >= 0; i--){
+            var trsl = trsls[i];
+            trsl.dirty = bool;
+          }
+          scope.$emit('trslChange');
+        }
+
+        scope.setDirty = function() {
+          changeAllStatus(true);
+        };
+
+        scope.setClean = function() {
+          changeAllStatus(false);
+        };
       },
       templateUrl: 'app/i18n/trsl_value.directive.html'
     };

@@ -1,5 +1,17 @@
 <div>{{ value.name }}</div>
 <div>{{ value.comment }}</div>
+
+<br/>
+
+<div>
+  <ul class="button-group radius round">
+    <li class="button tiny" ng-click="setDirty()">all dirty</li>
+    <li class="button tiny" ng-click="setClean()">all clean</li>
+  </ul>
+</div>
+
+<br/>
+
 <div ng-repeat="trsl in value.translations">
   <div trsl="trsl"/>
 </div>
