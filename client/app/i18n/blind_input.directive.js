@@ -6,7 +6,8 @@ angular.module('arethusaTranslateGuiApp').directive('blindInput', [
     return {
       restrict: 'AE',
       scope: {
-        model: '&ngModel'
+        model: '&ngModel',
+        type: '@'
       },
       link: function(scope, element, attrs) {
         var parent = scope.$parent,
@@ -18,6 +19,10 @@ angular.module('arethusaTranslateGuiApp').directive('blindInput', [
             setter(parent, scope.model);
             parent.deferredUpdate();
           }
+        });
+
+        scope.$watch('$parent.adminMode', function(newVal) {
+          scope.adminMode = newVal;
         });
       },
       templateUrl: 'app/i18n/blind_input.directive.html'
