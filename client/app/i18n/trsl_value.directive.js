@@ -45,6 +45,14 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
         scope.setClean = function() {
           changeAllStatus(false);
         };
+
+        scope.removeConfirmation = function() {
+          // Should ask if user is sure he wants to do that
+          var values = scope.container.values;
+          var i = values.indexOf(scope.value);
+          values.splice(i, 1);
+          scope.deferredUpdate();
+        };
       },
       templateUrl: 'app/i18n/trsl_value.directive.html'
     };
