@@ -3,14 +3,17 @@
     <div>
       Container:
       <span blind-input ng-model="container.name"/>
-      <span class="button micro" ng-click="addSubContainer(container)">Add sub-container</span>
       <span class="button micro" ng-click="addValue(container)">Add value</span>
+      <span class="button micro" ng-click="addSubContainer(container)">Add sub-container</span>
     </div>
   </p>
   <div>
     {{ container.comment }}
   </div>
-  <div style="margin-left: 1rem" ng-repeat="value in container.values track by value._id">
+  <div
+    style="margin-left: 1rem"
+    class="fade"
+    ng-repeat="value in container.values track by value._id">
     <div trsl-value/>
     <hr/>
   </div>
