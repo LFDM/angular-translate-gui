@@ -14,14 +14,20 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         var table = element.find('table');
         var eventName = main ? 'mainChange' : 'clean';
 
-        if (!main) {
-          scope.$watch('trsl.dirty', function(newVal) {
-            var classes = [DIRTY, CLEAN];
-            var cl = newVal ? classes : classes.reverse();
-            table.addClass(cl[0]);
-            table.removeClass(cl[1]);
-          });
+        function switchClasses(newVal) {
+          var classes = [DIRTY, CLEAN];
+          var cl = newVal ? classes : classes.reverse();
+          table.addClass(cl[0]);
+          table.removeClass(cl[1]);
+        }
 
+        function setClean() {
+          scope.trsl.dirty = false;
+          scope.$emit(eventName);
+        }
+
+        if (!main) {
+          scope.$watch('trsl.dirty', switchClasses);
           scope.addMainDirtyListener(scope, 'trsl');
         } else {
           scope.trsl.dirty = false;
@@ -30,10 +36,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         var timer;
         scope.trackChange = function() {
           if (timer) $timeout.cancel(timer);
-          timer = $timeout(function() {
-            scope.trsl.dirty = false;
-            scope.$emit(eventName);
-          }, 1000);
+          timer = $timeout(setClean, 1000);
         };
       },
       templateUrl: 'app/i18n/trsl.directive.html'
