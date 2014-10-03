@@ -62,6 +62,10 @@ textarea.blind {
   box-shadow: none;
   margin: 0;
   background-color: inherit;
+
+  &[disabled] {
+    background-color: inherit;
+  }
 }
 
 input.blind {
