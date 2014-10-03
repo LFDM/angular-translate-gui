@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 var ContainerSchema = new Schema({
   name: String,
   dirty: { type: Boolean, default: false },
+  comment: String,
   values: [ values.schema ]
 });
 
