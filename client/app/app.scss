@@ -82,5 +82,10 @@ input.blind {
 
 table {
   border-radius: 0.3rem;
+  margin-bottom: 0.6rem !important;
+
+  tr {
+    vertical-align: bottom;
+  }
 }
 
