@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('arethusaTranslateGuiApp').directive('container', [
-  function() {
+  '$timeout',
+  function($timeout) {
     return {
       restrict: 'A',
       link: function(scope) {
@@ -23,7 +24,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         scope.$on('mainChange', function() {
           scope.container.dirty = true;
           scope.$broadcast('mainDirty');
-          scope.container.$update();
+          scope.deferredUpdate();
         });
 
         scope.$on('trslChange', function() {
@@ -33,13 +34,25 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           } else {
             scope.container.dirty = true;
           }
-          scope.container.$update();
+          scope.deferredUpdate();
         });
 
         scope.addMainDirtyListener = function(childScope, property) {
           childScope.$on('mainDirty', function() {
             childScope[property].dirty = true;
           });
+        };
+
+        function update() {
+          scope.container.$update(function() {
+            console.log('Database updated!');
+          });
+        }
+
+        var timer;
+        scope.deferredUpdate = function() {
+          if (timer) $timeout.cancel(timer);
+          timer = $timeout(update, 1500);
         };
       },
       templateUrl: 'app/i18n/container.directive.html'
