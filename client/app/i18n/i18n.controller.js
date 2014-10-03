@@ -40,7 +40,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return new Container();
     };
 
-    $scope.languages = ['en', 'de', 'fr'];
+    $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
 
     $scope.adminMode = true;
     $scope.$watch('adminMode', function(newVal) {
