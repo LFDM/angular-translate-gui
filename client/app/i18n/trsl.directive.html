@@ -1,17 +1,17 @@
-<table>
+<table style="width: 100%">
   <tr>
-    <td style="width: 3rem">
+    <td style="width: 3%">
       <strong>{{ trsl.lang }}</strong>
     </td>
-    <td>
+    <td style="width: auto">
       <textarea
         class="blind"
+        style="width: 100%; resize: vertical"
         ng-change="trackChange()"
         placeholder="Enter a translation..."
-        style="width: 50rem"
         ng-model="trsl.translation"/>
     </td>
-    <td style="width: 2rem">
+    <td style="width: 3%; vertical-align: middle">
       <i class="fa fa-{{ toggleIcon }} clickable" ng-click="toggleStatus()"></i>
     </td>
   </tr>
