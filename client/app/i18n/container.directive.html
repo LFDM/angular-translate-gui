@@ -10,8 +10,8 @@
   <div>
     {{ container.comment }}
   </div>
-  <div style="margin-left: 1rem" ng-repeat="value in container.values">
-    <div trsl-value="value"/>
+  <div style="margin-left: 1rem" ng-repeat="value in container.values track by value._id">
+    <div trsl-value/>
     <hr/>
   </div>
 </div>
