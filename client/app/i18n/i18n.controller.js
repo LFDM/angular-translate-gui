@@ -58,7 +58,8 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     function removalConfirmed() {
       return $modal.open({
-        templateUrl: 'app/i18n/removal_dialog.html'
+        templateUrl: 'app/i18n/removal_dialog.html',
+        windowClass: 'removal-modal'
       }).result;
     }
 
