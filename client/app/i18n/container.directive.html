@@ -8,7 +8,11 @@
     </div>
   </p>
   <div>
-    {{ container.comment }}
+    <span
+      blind-input
+      placeholder="Enter a comment or a description here..."
+      ng-model="container.comment"
+      type="textarea"/>
   </div>
   <div
     style="margin-left: 1rem"
