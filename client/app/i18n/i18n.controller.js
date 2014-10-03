@@ -3,7 +3,8 @@
 angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   '$scope',
   '$resource',
-  function($scope, $resource) {
+  '$modal',
+  function($scope, $resource, $modal) {
     var Container   = $resource('api/containers/:id', { id: '@_id' }, {
       update: { method: 'PUT'}
     });
@@ -55,12 +56,21 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       };
     };
 
+    function removalConfirmed() {
+      return $modal.open({
+        templateUrl: 'app/i18n/removal_dialog.html'
+      }).result;
+    }
+
     $scope.removeFactory = function(containers, container, fn) {
       return function() {
-        // Ask for confirmation
-        var i = containers.indexOf(container);
-        containers.splice(i, 1);
-        fn();
+        removalConfirmed().then(function(result) {
+          if (result) {
+            var i = containers.indexOf(container);
+            containers.splice(i, 1);
+            fn();
+          }
+        });
       };
     };
   }
