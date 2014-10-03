@@ -13,7 +13,7 @@
   <div
     style="margin-left: 1rem"
     class="fade"
-    ng-repeat="value in container.values track by value._id">
+    ng-repeat="value in container.values track by $index">
     <div trsl-value/>
     <hr/>
   </div>
