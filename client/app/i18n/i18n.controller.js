@@ -12,8 +12,9 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       $scope.containers = res;
     });
 
-    $scope.newContainer = function() {
-      return new Container();
+    $scope.newContainer = function(params) {
+      params = params || {};
+      return new Container(params);
     };
 
     $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
@@ -32,6 +33,26 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       cont.$save(function() {
         $scope.containers.push(cont);
       });
+    };
+
+    $scope.subContainerFactory = function(childScope) {
+      return function() {
+        var subContainer = $scope.newContainer({ values: [], containers: [] });
+        childScope.container.containers.push(subContainer);
+        childScope.deferredUpdate();
+      };
+    };
+
+    $scope.valueFactory = function(childScope) {
+      return function() {
+        var cont = childScope.container;
+        var trsls = _.map($scope.languages, function(lang) {
+          return { lang: lang, dirty: true };
+        });
+        cont.values.push({ translations: trsls, dirty: true });
+        cont.dirty = true;
+        childScope.deferredUpdate();
+      };
     };
   }
 ]);
