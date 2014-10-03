@@ -35,6 +35,10 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
             var trsl = trsls[i];
             trsl.dirty = bool;
           }
+          emit();
+        }
+
+        function emit() {
           scope.$emit('trslChange');
         }
 
@@ -51,6 +55,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           var values = scope.container.values;
           var i = values.indexOf(scope.value);
           values.splice(i, 1);
+          emit();
           scope.deferredUpdate();
         };
       },
