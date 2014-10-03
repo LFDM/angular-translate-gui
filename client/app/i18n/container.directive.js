@@ -23,6 +23,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         scope.$on('mainChange', function() {
           scope.container.dirty = true;
           scope.$broadcast('mainDirty');
+          scope.container.$update();
         });
 
         scope.$on('clean', function() {
@@ -30,6 +31,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           if (scope.allClean(cont.containers) && scope.allClean(cont.values)) {
            scope.container.dirty = false;
           }
+          scope.container.$update();
         });
       },
       templateUrl: 'app/i18n/container.directive.html'

@@ -22,6 +22,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
           });
 
           scope.$on('mainDirty', function() {
+            console.log('in broadcast');
             scope.trsl.dirty = true;
           });
         } else {
