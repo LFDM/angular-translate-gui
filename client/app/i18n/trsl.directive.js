@@ -12,19 +12,37 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
 
         var main = MAIN_LANGUAGE === scope.trsl.lang;
         var table = element.find('table');
-        var eventName = main ? 'mainChange' : 'clean';
+        var eventName = main ? 'mainChange' : 'trslChange';
 
         function switchClasses(newVal) {
           var classes = [DIRTY, CLEAN];
           var cl = newVal ? classes : classes.reverse();
           table.addClass(cl[0]);
           table.removeClass(cl[1]);
+
+          scope.toggleIcon = newVal ? 'check' : 'remove';
+        }
+
+        function changeStatus(bool) {
+          scope.trsl.dirty = bool;
+          scope.$emit(eventName);
         }
 
         function setClean() {
-          scope.trsl.dirty = false;
-          scope.$emit(eventName);
+          changeStatus(false);
         }
+
+        function setDirty() {
+          changeStatus(true);
+        }
+
+        scope.toggleStatus = function() {
+          if (scope.trsl.dirty) {
+            setClean();
+          } else {
+            setDirty();
+          }
+        };
 
         if (!main) {
           scope.$watch('trsl.dirty', switchClasses);

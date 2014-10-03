@@ -7,9 +7,11 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
       link: function(scope) {
         scope.addMainDirtyListener(scope, 'value');
 
-        scope.$on('clean', function() {
+        scope.$on('trslChange', function() {
           if (scope.allClean(scope.value.translations)) {
-           scope.value.dirty = false;
+            scope.value.dirty = false;
+          } else {
+            scope.value.dirty = true;
           }
         });
       },

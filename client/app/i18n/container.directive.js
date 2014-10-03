@@ -26,10 +26,12 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           scope.container.$update();
         });
 
-        scope.$on('clean', function() {
+        scope.$on('trslChange', function() {
           var cont = scope.container;
           if (scope.allClean(cont.containers) && scope.allClean(cont.values)) {
-           scope.container.dirty = false;
+            scope.container.dirty = false;
+          } else {
+            scope.container.dirty = true;
           }
           scope.container.$update();
         });
