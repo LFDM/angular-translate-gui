@@ -13,7 +13,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     });
 
     $scope.newContainer = function(params) {
-      params = params || {};
+      params = angular.extend({ dirty: true }, params);
       return new Container(params);
     };
 
@@ -52,6 +52,15 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         cont.values.push({ translations: trsls, dirty: true });
         cont.dirty = true;
         childScope.deferredUpdate();
+      };
+    };
+
+    $scope.removeFactory = function(containers, container, fn) {
+      return function() {
+        // Ask for confirmation
+        var i = containers.indexOf(container);
+        containers.splice(i, 1);
+        fn();
       };
     };
   }

@@ -58,13 +58,9 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         scope.addSubContainer = scope.subContainerFactory(scope);
         scope.addValue = scope.valueFactory(scope);
 
-        scope.remove = function() {
-          // Ask for confirmation
-          var conts = scope.containers;
-          var i = conts.indexOf(scope.container);
-          conts.splice(i, 1);
+        scope.remove = scope.removeFactory(scope.containers, scope.container, function() {
           scope.container.$remove();
-        };
+        });
       },
       templateUrl: 'app/i18n/container.directive.html'
     };
