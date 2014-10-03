@@ -25,22 +25,25 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // injector
 // endinjector
 
+$clean: #EBFFE5;
+$dirty: #FFEAEA;
+
 .dirty-bg {
-  background-color: #FFD5D5 !important;
+  background-color: $dirty !important;
   @include transition(background 1s ease-in-out);
 }
 
 .dirty-bg-dark {
-  background-color: rgb(255, 127, 127) !important;
+  background-color: darken($dirty, 10%) !important;
   @include transition(background 0.6s ease-in-out);
 }
 
 .clean-bg {
-  background-color: rgb(221, 255, 211) !important;
+  background-color: $clean !important;
   @include transition(background 1s ease-in-out);
 }
 
 .clean-bg-dark {
-  background-color: rgb(109, 250, 109) !important;
+  background-color: darken($clean, 15%) !important;
   @include transition(background 0.6s ease-in-out);
 }
