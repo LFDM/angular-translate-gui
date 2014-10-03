@@ -54,6 +54,20 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           if (timer) $timeout.cancel(timer);
           timer = $timeout(update, 1500);
         };
+
+        scope.addSubContainer = function() {
+          var subContainer = scope.newContainer();
+          scope.container.containers.push(subContainer);
+          //scope.deferredUpdate();
+        };
+
+        scope.addValue = function() {
+          var trsls = _.map(scope.languages, function(lang) {
+            return { lang: lang };
+          });
+          scope.container.values.push({ translations: trsls });
+          //scope.deferredUpdate();
+        };
       },
       templateUrl: 'app/i18n/container.directive.html'
     };

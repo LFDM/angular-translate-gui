@@ -36,10 +36,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       $scope.containers = res;
     });
 
-    function removeAll(container) {
-      angular.forEach(container, function(resource) {
-        resource.$remove();
-      });
-    }
+    $scope.newContainer = function() {
+      return new Container();
+    };
+
+    $scope.languages = ['en', 'de', 'fr'];
   }
 ]);
