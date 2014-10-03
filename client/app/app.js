@@ -5,7 +5,8 @@ angular.module('arethusaTranslateGuiApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ngAnimate'
+  'ngAnimate',
+  'mm.foundation'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
