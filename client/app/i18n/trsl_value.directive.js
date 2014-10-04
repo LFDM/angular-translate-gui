@@ -2,12 +2,13 @@
 
 angular.module('arethusaTranslateGuiApp').directive('trslValue', [
   function() {
+    var DIRTY = 'dirty-bg';
+    var CLEAN = 'clean-bg';
+    var TRSL_CHANGE = 'trslChange';
+
     return {
       restrict: 'A',
-      link: function(scope, element) {
-        var DIRTY = 'dirty-bg';
-        var CLEAN = 'clean-bg';
-
+      link: function(scope) {
         function switchClassAndNotify(newVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
         }
@@ -21,8 +22,13 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           scope.value.dirty = !isClean();
         }
 
-        function emit() {
-          scope.$emit('trslChange');
+        function changeAllStatus(bool) {
+          var trsls = scope.value.translations;
+          for (var i = trsls.length - 1; i >= 0; i--){
+            var trsl = trsls[i];
+            trsl.dirty = bool;
+          }
+          scope.$emit(TRSL_CHANGE);
         }
 
         scope.$watch('value.dirty', switchClassAndNotify);
@@ -38,16 +44,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           scope.deferredUpdate();
         });
 
-        scope.$on('trslChange', checkDirtyness);
-
-        function changeAllStatus(bool) {
-          var trsls = scope.value.translations;
-          for (var i = trsls.length - 1; i >= 0; i--){
-            var trsl = trsls[i];
-            trsl.dirty = bool;
-          }
-          scope.$emit('trslChange');
-        }
+        scope.$on(TRSL_CHANGE, checkDirtyness);
 
         scope.setDirty = function() {
           changeAllStatus(true);
