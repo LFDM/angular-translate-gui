@@ -85,5 +85,19 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         }
       });
     };
+
+    $scope.allClean = function(el, property) {
+      if (el.name) {
+        var container = el[property];
+        var clean = true;
+        for (var i = container.length - 1; i >= 0; i--){
+          if (container[i].dirty) {
+              clean = false;
+              break;
+          }
+        }
+        return clean;
+      }
+    };
   }
 ]);

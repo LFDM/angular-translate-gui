@@ -6,29 +6,9 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
     return {
       restrict: 'A',
       link: function(scope) {
-        scope.allClean = function(el, property) {
-          if (el.name) {
-            var container = el[property];
-            var clean = true;
-            for (var i = container.length - 1; i >= 0; i--){
-              if (container[i].dirty) {
-                  clean = false;
-                  break;
-              }
-            }
-            return clean;
-          }
-        };
-
         scope.$watch('container.dirty', function(newVal) {
           scope.statusClass = newVal ? 'dirty-bg' : 'clean-bg';
         });
-
-        //scope.$on('mainChange', function() {
-          //scope.container.dirty = true;
-          //scope.$broadcast('mainDirty');
-          //scope.deferredUpdate();
-        //});
 
         function checkStatus() {
           var cont = scope.container;
