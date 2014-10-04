@@ -9,7 +9,7 @@
 
 <div class="small-12 columns">
   <div
-    ng-repeat="container in containers | filter: { name: nameFilter }"
+    ng-repeat="container in containers track by container.createdAt | filter: { name: nameFilter }"
     class="fade small-6 columns">
     <div container></div>
   </div>
