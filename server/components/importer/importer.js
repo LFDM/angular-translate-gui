@@ -12,30 +12,45 @@ var ContainerModel = require(apiPath + 'container/container.model')
 var fs = require('fs');
 var _  = require('lodash');
 
-var top = { containers: [] };
+var withoutNamespace = new Container('withoutNamespace');
+var top = { containers: [ withoutNamespace ] };
 
 console.log("Reading files form "+ importDir);
 
 function parseFiles() {
-  fs.readdir(importDir, function(err, files) {
-    files.forEach(function(file) {
-      var fullPath = importDir + '/' + file;
-      fs.readFile(fullPath, function(er, data) {
-        var content = JSON.parse(data);
-        var lang = file.slice(0, -5);
-        parseContent(top, 'withoutNamespace', content, lang);
-      });
-    });
+  var paths = fs.readdirSync(importDir);
+  paths.forEach(function(path) {
+    var fullPath = importDir + '/' + path;
+    var content = JSON.parse(fs.readFileSync(fullPath));
+    var lang = path.slice(0, -5);
+
+    // Special handling for top level properties, which get assigned to a
+    // container called `withoutNamespace`.
+    // All other properties are recursively added.
+    var withSubLevels = {}
+
+    for (var key in content) {
+      var val = content[key];
+      if (typeof val === 'string') {
+        addValToContainer(withoutNamespace, key, val, lang);
+      } else {
+        withSubLevels[key] = val;
+      }
+    }
+
+    parseContent(top, withSubLevels, lang);
   });
 }
 
-function parseContent(container, accessor, content, lang) {
+function parseContent(container, content, lang) {
   for (var key in content) {
     var val = content[key];
     var cont;
     if (typeof val === 'string') {
-      cont = getContainer(container, accessor);
-      addValToContainer(cont, key, val, lang);
+      addValToContainer(container, key, val, lang);
+    } else {
+      cont = getContainer(container, key);
+      parseContent(cont, val, lang);
     }
   }
 }
@@ -73,7 +88,6 @@ function addValToContainer(container, val, trsl, lang) {
   var value = _.find(values, function(el) {
     return el.name === val;
   })
-
   if (!value) {
     value = new Value(val);
     values.push(value);
