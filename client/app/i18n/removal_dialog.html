@@ -3,7 +3,12 @@
     Do you really want to remove?
   </p>
   <div>
-    <span ng-click="$close(true)"  class="button success success">Yes!</span>
+    <span
+      ng-click="$close(true)"
+      close-on-enter
+      class="button success success">
+      Yes!
+    </span>
     <span ng-click="$close(false)" class="button success alert">No!</span>
   </div>
 </div>
