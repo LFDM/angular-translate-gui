@@ -5,9 +5,11 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   '$resource',
   '$modal',
   function($scope, $resource, $modal) {
-    var Container   = $resource('api/containers/:id', { id: '@_id' }, {
+    var Container = $resource('api/containers/:id', { id: '@_id' }, {
       update: { method: 'PUT'}
     });
+
+    var Uid = $resource('/api/uid');
 
     Container.query(function(res) {
       $scope.containers = res;
@@ -41,11 +43,18 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     $scope.subContainerFactory = function(childScope) {
       return function() {
-        var subContainer = $scope.newContainer({ values: [], containers: [] });
-        childScope.container.containers.unshift(subContainer);
-        childScope.deferredUpdate();
-        childScope.$emit('trslChange');
-        $scope.autoFocus = true;
+        Uid.get(function(res) {
+          var subContainer = $scope.newContainer({
+            _id: res.uid,
+            values: [],
+            containers: []
+          });
+          childScope.container.containers.unshift(subContainer);
+          childScope.deferredUpdate();
+          childScope.$emit('trslChange');
+          $scope.autoFocus = true;
+        });
+
       };
     };
 
@@ -53,7 +62,8 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       $scope.autoFocus = false;
     });
 
-    function Value(trsls) {
+    function Value(trsls, id) {
+      this._id = id;
       this.dirty = true;
       this.translations = trsls;
       this.createdAt = new Date().toJSON();
@@ -61,17 +71,19 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     $scope.valueFactory = function(childScope) {
       return function() {
-        var cont = childScope.container;
-        var trsls = _.map($scope.languages, function(lang) {
-          return { lang: lang, dirty: true };
+        Uid.get(function(res) {
+          var cont = childScope.container;
+          var trsls = _.map($scope.languages, function(lang) {
+            return { lang: lang, dirty: true };
+          });
+          var value = new Value(trsls, res.uid);
+
+          cont.values.unshift(value);
+
+          cont.dirty = true;
+          $scope.autoFocus = true;
+          childScope.deferredUpdate();
         });
-        var value = new Value(trsls);
-
-        cont.values.unshift(value);
-
-        cont.dirty = true;
-        $scope.autoFocus = true;
-        childScope.deferredUpdate();
       };
     };
 
