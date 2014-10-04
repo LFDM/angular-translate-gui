@@ -14,7 +14,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     });
 
     $scope.newContainer = function(params) {
-      params = angular.extend({ dirty: true }, params);
+      params = angular.extend({
+        dirty: true,
+        createdAt: new Date().toJSON()
+      }, params);
       return new Container(params);
     };
 

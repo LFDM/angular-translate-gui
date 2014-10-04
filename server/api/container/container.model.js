@@ -8,6 +8,7 @@ var ContainerSchema = new Schema({
   name: String,
   dirty: { type: Boolean, default: true },
   comment: String,
+  createdAt: { type: Date, default: Date.now },
   values: [ values.schema ]
 });
 

@@ -10,6 +10,7 @@ var ValueSchema = new Schema({
   exampleUrl: String,
   example: String,
   dirty: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
   translations: [ translations.schema ],
 });
 

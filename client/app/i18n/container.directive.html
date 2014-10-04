@@ -21,14 +21,14 @@
     style="margin-left: 1rem"
     class="fade"
     ng-repeat="value in container.values track by value.createdAt">
-    <div trsl-value/>
+      <div trsl-value/>
     <hr/>
   </div>
 
   <div
     style="margin-left: 1rem"
     class="fade"
-    ng-repeat="container in container.containers track by $index">
+    ng-repeat="container in container.containers track by container.createdAt">
       <div sub-container/>
     <p/>
   </div>
