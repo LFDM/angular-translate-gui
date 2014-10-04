@@ -20,14 +20,11 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           scope.deferredUpdate();
         }
 
+        scope.$on('valueChange', checkStatus);
+
         //scope.$on('trslChange', checkStatus);
         scope.$on('subcontainerRemoved', checkStatus);
 
-        scope.addMainDirtyListener = function(childScope, property) {
-          childScope.$on('mainDirty', function() {
-            childScope[property].dirty = true;
-          });
-        };
 
         function update() {
           scope.container.$update(function() {
