@@ -35,14 +35,14 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     $scope.addContainer = function() {
       var cont = $scope.newContainer();
       cont.$save(function() {
-        $scope.containers.push(cont);
+        $scope.containers.unshift(cont);
       });
     };
 
     $scope.subContainerFactory = function(childScope) {
       return function() {
         var subContainer = $scope.newContainer({ values: [], containers: [] });
-        childScope.container.containers.push(subContainer);
+        childScope.container.containers.unshift(subContainer);
         childScope.deferredUpdate();
         childScope.$emit('trslChange');
       };
@@ -62,7 +62,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         });
         var value = new Value(trsls);
 
-        cont.values.push(value);
+        cont.values.unshift(value);
 
         cont.dirty = true;
         childScope.deferredUpdate();
