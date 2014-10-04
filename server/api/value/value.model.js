@@ -9,7 +9,7 @@ var ValueSchema = new Schema({
   comment: String,
   exampleUrl: String,
   example: String,
-  dirty: { type: Boolean, default: false },
+  dirty: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
   translations: [ translations.schema ],
 });
