@@ -12,7 +12,25 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           scope.statusClass = newVal ? DIRTY : CLEAN;
         }
 
+        function isClean() {
+          return scope.allClean(scope.value, 'translations');
+        }
+
+        function checkDirtyness() {
+          console.log('checking');
+          scope.value.dirty = !isClean();
+        }
+
+        function emit() {
+          scope.$emit('trslChange');
+        }
+
         scope.$watch('value.dirty', switchClassAndNotify);
+
+        scope.$watch('value.name', function(newVal, oldVal) {
+          if (!oldVal) checkDirtyness();
+          if (!newVal) scope.value.dirty = true;
+        });
 
         scope.$on('mainChange', function() {
           scope.value.dirty = true;
@@ -20,13 +38,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           scope.deferredUpdate();
         });
 
-        scope.$on('trslChange', function() {
-          if (scope.allClean(scope.value.translations)) {
-            scope.value.dirty = false;
-          } else {
-            scope.value.dirty = true;
-          }
-        });
+        scope.$on('trslChange', checkDirtyness);
 
         function changeAllStatus(bool) {
           var trsls = scope.value.translations;
@@ -34,10 +46,6 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
             var trsl = trsls[i];
             trsl.dirty = bool;
           }
-          emit();
-        }
-
-        function emit() {
           scope.$emit('trslChange');
         }
 
