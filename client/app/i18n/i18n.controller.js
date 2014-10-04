@@ -54,7 +54,6 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
           childScope.$emit('trslChange');
           $scope.autoFocus = true;
         });
-
       };
     };
 
