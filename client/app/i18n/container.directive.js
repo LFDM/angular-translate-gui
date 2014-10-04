@@ -21,7 +21,6 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
 
         scope.$on('valueChange', checkStatus);
         scope.$on('subcontainerChange', checkStatus);
-        scope.$on('subcontainerRemoved', checkStatus);
 
         var timer;
         scope.deferredUpdate = function() {
