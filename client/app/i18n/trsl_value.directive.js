@@ -20,7 +20,6 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
         }
 
         function checkDirtyness() {
-          console.log('checking');
           scope.value.dirty = !isClean();
         }
 
