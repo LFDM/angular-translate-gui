@@ -9,6 +9,8 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
       link: function(scope) {
         function checkStatus() { containerHelper.checkStatus(scope); }
 
+        scope.title = 'Container';
+
         function update() {
           scope.container.$update(function() {
             console.log('Database updated!');
