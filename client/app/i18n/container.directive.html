@@ -18,11 +18,10 @@
       type="textarea"/>
   </div>
   <div
-    class="nested-container"
+    class="nested-container fade"
     ng-repeat="value in container.values track by value.createdAt">
       <div trsl-value/>
-    <hr/>
   </div>
 
-  <div sub-containers/>
+  <div class="vertically-spaced" sub-containers/>
 </div>
