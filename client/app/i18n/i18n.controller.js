@@ -117,5 +117,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         return clean;
       }
     };
+
+    $scope.maxItemsShown = 0;
+    $scope.infiniteScroll = function() {
+      $scope.maxItemsShown += 2;
+    };
   }
 ]);

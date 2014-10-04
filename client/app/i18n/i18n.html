@@ -7,9 +7,12 @@
   <span class="button right" ng-click="toggleMode()">{{ modeText }}</span>
 </div>
 
-<div class="small-12 columns">
+<div
+  infinite-scroll="infiniteScroll()"
+  infinite-scroll-distance="2"
+  class="small-12 columns">
   <div
-    ng-repeat="container in containers | filter: { name: nameFilter } track by container._id"
+    ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
     class="fade small-6 columns">
     <div container/>
   </div>
