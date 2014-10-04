@@ -69,12 +69,21 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       this.createdAt = new Date().toJSON();
     }
 
+    function Translation(lang) {
+      this.lang = lang;
+      this.dirty = true;
+    }
+
+    $scope.newTranslation = function(lang) {
+      return new Translation(lang);
+    };
+
     $scope.valueFactory = function(childScope) {
       return function() {
         Uid.get(function(res) {
           var cont = childScope.container;
           var trsls = _.map($scope.languages, function(lang) {
-            return { lang: lang, dirty: true };
+            return new Translation(lang);
           });
           var value = new Value(trsls, res.uid);
 
