@@ -32,12 +32,13 @@ angular.module('arethusaTranslateGuiApp').directive('blindInput', [
           return scope.$parent.autoFocus && ngModel.match(/name$/);
         }
 
-        if (shouldAutoFocus) {
+        if (shouldAutoFocus()) {
           // Need to $timeout, because this field is only present
           // after a ngIf evaluation.
           $timeout(function() {
             var input = element.find('input')[0];
             input.focus();
+            scope.$parent.$emit('autoFocusTriggered');
           });
         }
       },

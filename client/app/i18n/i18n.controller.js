@@ -45,8 +45,13 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         childScope.container.containers.unshift(subContainer);
         childScope.deferredUpdate();
         childScope.$emit('trslChange');
+        $scope.autoFocus = true;
       };
     };
+
+    $scope.$on('autoFocusTriggered', function() {
+      $scope.autoFocus = false;
+    });
 
     function Value(trsls) {
       this.dirty = true;
@@ -65,6 +70,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         cont.values.unshift(value);
 
         cont.dirty = true;
+        $scope.autoFocus = true;
         childScope.deferredUpdate();
       };
     };
