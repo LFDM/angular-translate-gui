@@ -1,6 +1,6 @@
 <div class="row panel">
   <span>
-    <input ng-model="nameFilter" type="search"/>
+    <input ng-model="nameFilter" ng-change="resetMaxItems()" type="search"/>
   </span>
   <span class="button" ng-click="addContainer()">New Container</span>
   <span class="button center success" dump-dialog>Dump!</span>

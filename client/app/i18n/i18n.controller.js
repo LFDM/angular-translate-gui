@@ -122,5 +122,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     $scope.infiniteScroll = function() {
       $scope.maxItemsShown += 2;
     };
+    $scope.resetMaxItems = function() {
+      if ($scope.maxItemsShown > 5) {
+        $scope.maxItemsShown = 4;
+      }
+    };
   }
 ]);
