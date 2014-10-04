@@ -18,6 +18,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
         });
 
         scope.$on('valueChange', checkStatus);
+        scope.$on('subcontainerChange', checkStatus);
 
         scope.addSubContainer = scope.subContainerFactory(scope);
         scope.addValue = scope.valueFactory(scope);
