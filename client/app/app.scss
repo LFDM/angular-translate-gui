@@ -94,3 +94,8 @@ table {
   left: 74% !important;
   top: 30% !important;
 }
+
+.nested-container {
+  margin-left: 1rem;
+  @extend .fade;
+}

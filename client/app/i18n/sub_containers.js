@@ -8,11 +8,10 @@ angular.module('arethusaTranslateGuiApp').directive('subContainers', [
      link: function(scope, element) {
        var template = '\
          <div\
-           style="margin-left: 1rem"\
-           class="fade"\
+           class="nested-container"\
            ng-repeat="container in container.containers track by container.createdAt">\
              <div sub-container/>\
-        </div>\
+         </div>\
        ';
        element.append($compile(template)(scope));
      }
