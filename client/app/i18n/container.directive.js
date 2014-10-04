@@ -2,19 +2,12 @@
 
 angular.module('arethusaTranslateGuiApp').directive('container', [
   '$timeout',
-  function($timeout) {
+  'containerHelper',
+  function($timeout, containerHelper) {
     return {
       restrict: 'A',
       link: function(scope) {
-        function checkStatus() {
-          var cont = scope.container;
-          if (scope.allClean(cont, 'containers') && scope.allClean(cont, 'values')) {
-            scope.container.dirty = false;
-          } else {
-            scope.container.dirty = true;
-          }
-          scope.deferredUpdate();
-        }
+        function checkStatus() { containerHelper.checkStatus(scope); }
 
         function update() {
           scope.container.$update(function() {
@@ -27,6 +20,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         });
 
         scope.$on('valueChange', checkStatus);
+        scope.$on('subcontainerChange', checkStatus);
         scope.$on('subcontainerRemoved', checkStatus);
 
         var timer;
