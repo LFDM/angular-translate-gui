@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('arethusaTranslateGuiApp').directive('nestedSubContainer', [
+angular.module('arethusaTranslateGuiApp').directive('subContainers', [
   '$compile',
   function($compile) {
    return {
