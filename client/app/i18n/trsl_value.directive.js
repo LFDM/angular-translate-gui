@@ -8,17 +8,11 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
         var DIRTY = 'dirty-bg';
         var CLEAN = 'clean-bg';
 
-        scope.addMainDirtyListener(scope, 'value');
-        element.css('padding', '1rem');
-
-        function switchClasses(newVal) {
-          var classes = [DIRTY, CLEAN];
-          var cl = newVal ? classes : classes.reverse();
-          element.addClass(cl[0]);
-          element.removeClass(cl[1]);
+        function switchClassAndNotify(newVal) {
+          scope.statusClass = newVal ? DIRTY : CLEAN;
         }
 
-        scope.$watch('value.dirty', switchClasses);
+        scope.$watch('value.dirty', switchClassAndNotify);
 
         scope.$on('mainChange', function() {
           scope.value.dirty = true;
