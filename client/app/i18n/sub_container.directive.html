@@ -1,0 +1,36 @@
+<div class="row panel" ng-class="statusClass">
+  <p>
+    <div>
+      Container:
+      <span blind-input ng-model="container.name" placeholder="Enter a container name..."/>
+      <span class="right">
+        <span class="button radius micro" ng-click="addValue(container)">Add value</span>
+        <span class="button radius micro" ng-click="addSubContainer(container)">Add sub-container</span>
+        <span class="button radius micro alert" ng-click="remove()"><strong>Remove</strong></span>
+      </span>
+    </div>
+  </p>
+  <div>
+    <span
+      blind-input
+      placeholder="Enter a comment or a description here..."
+      ng-model="container.comment"
+      type="textarea"/>
+  </div>
+  <div
+    style="margin-left: 1rem"
+    class="fade"
+    ng-repeat="value in container.values track by $index">
+    <div trsl-value/>
+    <hr/>
+  </div>
+
+  <div
+    style="margin-left: 1rem"
+    class="fade"
+    ng-repeat="container in container.containers track by $index">
+      <!--<div sub-container/>-->
+    <p/>
+  </div>
+</div>
+
