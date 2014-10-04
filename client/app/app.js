@@ -6,7 +6,8 @@ angular.module('arethusaTranslateGuiApp', [
   'ngSanitize',
   'ngRoute',
   'ngAnimate',
-  'mm.foundation'
+  'mm.foundation',
+  'infinite-scroll'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
