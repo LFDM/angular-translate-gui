@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var Dump = require('./dump.model');
 var AdmZip = require('adm-zip');
 var Container = require('../container/container.model')
 var objPath = require('object-path');
@@ -56,71 +55,25 @@ function generateDump(callback) {
 
 // Get list of dumps
 exports.index = function(req, res) {
-  Dump.find(function (err, dumps) {
-    if(err) { return handleError(res, err); }
-    var zip = new AdmZip();
-    var zipname = "translations.zip";
+  var zip = new AdmZip();
+  var zipname = "translations.zip";
 
-    generateDump(function(result) {
-      for (var lang in result) {
-        var content = result[lang];
-        var filename = lang + '.json';
-        var json = new Buffer(JSON.stringify(content, null, "  "));
-        zip.addFile(filename, json);
-      }
+  generateDump(function(result) {
+    for (var lang in result) {
+      var content = result[lang];
+      var filename = lang + '.json';
+      var json = new Buffer(JSON.stringify(content, null, "  "));
+      zip.addFile(filename, json);
+    }
 
-      var buffer = zip.toBuffer();
-      res.set('Content-Type', 'multipart/x-zip');
-      res.setHeader('Content-disposition', 'attachment; filename=' + zipname);
-      res.send(buffer);
-      return res.json(200, result);
-    });
-
+    var buffer = zip.toBuffer();
+    res.set('Content-Type', 'multipart/x-zip; charset=utf-8');
+    res.setHeader('Content-disposition', 'attachment; filename=' + zipname);
+    res.send(buffer);
+    return res.json(200);
   });
 };
 
-// Get a single dump
-exports.show = function(req, res) {
-  Dump.findById(req.params.id, function (err, dump) {
-    if(err) { return handleError(res, err); }
-    if(!dump) { return res.send(404); }
-    return res.json(dump);
-  });
-};
-
-// Creates a new dump in the DB.
-exports.create = function(req, res) {
-  Dump.create(req.body, function(err, dump) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, dump);
-  });
-};
-
-// Updates an existing dump in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Dump.findById(req.params.id, function (err, dump) {
-    if (err) { return handleError(res, err); }
-    if(!dump) { return res.send(404); }
-    var updated = _.merge(dump, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, dump);
-    });
-  });
-};
-
-// Deletes a dump from the DB.
-exports.destroy = function(req, res) {
-  Dump.findById(req.params.id, function (err, dump) {
-    if(err) { return handleError(res, err); }
-    if(!dump) { return res.send(404); }
-    dump.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
-};
 
 function handleError(res, err) {
   return res.send(500, err);
