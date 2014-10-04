@@ -82,19 +82,5 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         }
       });
     };
-
-    $scope.removeFactory = function(containers, container, fn) {
-      return function() {
-        removalConfirmed().then(function(result) {
-          if (result) {
-            console.log(containers, container);
-            var i = containers.indexOf(container);
-            containers.splice(i, 1);
-            console.log(i);
-            fn();
-          }
-        });
-      };
-    };
   }
 ]);
