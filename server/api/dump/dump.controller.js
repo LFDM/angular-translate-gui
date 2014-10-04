@@ -2,11 +2,34 @@
 
 var _ = require('lodash');
 var Dump = require('./dump.model');
+var AdmZip = require('adm-zip');
 
 // Get list of dumps
 exports.index = function(req, res) {
   Dump.find(function (err, dumps) {
     if(err) { return handleError(res, err); }
+    var zip = new AdmZip();
+    var data = {
+      a: "asdfdsf sdfdsfds ",
+      b: 12321,
+      c: 2343,
+      d: "sdfsdfdsfsd",
+      e: {
+        f: 34234,
+        g: "sdfdsf",
+        h: {
+          i: [1, 2, 3]
+        }
+      }
+    };
+    zip.addFile("data.json", new Buffer(JSON.stringify(data)), "comment about data");
+    zip.addFile("data2.json", new Buffer(JSON.stringify(data)), "comment about data2");
+
+    var buffer = zip.toBuffer();
+    res.set('Content-Type', 'multipart/x-zip');
+    var filename = "data.zip";
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    res.send(buffer);
     return res.json(200, dumps);
   });
 };
