@@ -63,6 +63,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
 
         if (main) {
           makeClean();
+          scope.statusClass = '';
         } else {
           scope.$watch('trsl.dirty', switchClasses);
           scope.$on('mainDirty', makeDirty);
