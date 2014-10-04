@@ -1,11 +1,16 @@
 <div class="row panel">
+  <span>
+    <input ng-model="nameFilter" type="search"/>
+  </span>
   <span class="button" ng-click="addContainer()">New Container</span>
   <span class="button center success" dump-dialog>Dump!</span>
   <span class="button right" ng-click="toggleMode()">{{ modeText }}</span>
 </div>
 
 <div class="small-12 columns">
-  <div ng-repeat="container in containers" class="fade small-6 columns">
+  <div
+    ng-repeat="container in containers | filter: { name: nameFilter }"
+    class="fade small-6 columns">
     <div container></div>
   </div>
 </div>
