@@ -5,12 +5,14 @@ if (!importDir) {
   process.exit();
 }
 
-var apiPath = '../../api/'
-
-var ContainerModel = require(apiPath + 'container/container.model')
-
+var mongoose = require('mongoose');
 var fs = require('fs');
 var _  = require('lodash');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var config = require('../../config/environment');
+
+var ContainerModel = require('../../api/container/container.model')
 
 var withoutNamespace = new Container('withoutNamespace');
 var top = { containers: [ withoutNamespace ] };
@@ -95,4 +97,11 @@ function addValToContainer(container, val, trsl, lang) {
   value.translations.push(new Translation(trsl, lang));
 }
 
+function seedContainers() {
+  mongoose.connect(config.mongo.uri, config.mongo.options);
+  //ContainerModel.create(top.containers);
+  mongoose.disconnect();
+}
+
 parseFiles();
+seedContainers();
