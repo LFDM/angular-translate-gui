@@ -12,6 +12,8 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
       link: function(scope) {
         function checkStatus() { containerHelper.checkStatus(scope); }
 
+        containerHelper.nameWatch(scope);
+
         scope.$watch('container.dirty', function(newVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
           scope.$emit(SC_CHANGE);
