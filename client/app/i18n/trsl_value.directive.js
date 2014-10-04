@@ -5,13 +5,14 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
     var DIRTY = 'dirty-bg';
     var CLEAN = 'clean-bg';
     var TRSL_CHANGE = 'trslChange';
+    var VALUE_CHANGE = 'valueChange';
 
     return {
       restrict: 'A',
       link: function(scope) {
         function switchClassAndNotify(newVal, oldVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
-          if (newVal !== oldVal) scope.$emit('valueChange');
+          if (newVal !== oldVal) scope.$emit(VALUE_CHANGE);
         }
 
         function isClean() {
@@ -57,6 +58,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
 
         scope.remove = function() {
           scope.removeHelper(scope.container.values, scope.value, function() {
+            scope.$emit(VALUE_CHANGE);
             scope.deferredUpdate();
           });
         };

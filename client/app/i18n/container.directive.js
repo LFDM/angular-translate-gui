@@ -6,10 +6,6 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
     return {
       restrict: 'A',
       link: function(scope) {
-        scope.$watch('container.dirty', function(newVal) {
-          scope.statusClass = newVal ? 'dirty-bg' : 'clean-bg';
-        });
-
         function checkStatus() {
           var cont = scope.container;
           if (scope.allClean(cont, 'containers') && scope.allClean(cont, 'values')) {
@@ -20,17 +16,18 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           scope.deferredUpdate();
         }
 
-        scope.$on('valueChange', checkStatus);
-
-        //scope.$on('trslChange', checkStatus);
-        scope.$on('subcontainerRemoved', checkStatus);
-
-
         function update() {
           scope.container.$update(function() {
             console.log('Database updated!');
           });
         }
+
+        scope.$watch('container.dirty', function(newVal) {
+          scope.statusClass = newVal ? 'dirty-bg' : 'clean-bg';
+        });
+
+        scope.$on('valueChange', checkStatus);
+        scope.$on('subcontainerRemoved', checkStatus);
 
         var timer;
         scope.deferredUpdate = function() {
