@@ -34,7 +34,7 @@ $dirty: #FFEAEA;
 }
 
 .dirty-bg-dark {
-  background-color: darken($dirty, 10%) !important;
+  background-color: darken($dirty, 6%) !important;
   @include transition(background 0.6s ease-in-out);
 }
 
@@ -44,7 +44,7 @@ $dirty: #FFEAEA;
 }
 
 .clean-bg-dark {
-  background-color: darken($clean, 15%) !important;
+  background-color: darken($clean, 6%) !important;
   @include transition(background 0.6s ease-in-out);
 }
 
