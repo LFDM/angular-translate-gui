@@ -99,8 +99,9 @@ function addValToContainer(container, val, trsl, lang) {
 
 function seedContainers() {
   mongoose.connect(config.mongo.uri, config.mongo.options);
-  //ContainerModel.create(top.containers);
+  ContainerModel.create(top.containers);
   mongoose.disconnect();
+  console.log('DB seed successful!');
 }
 
 parseFiles();
