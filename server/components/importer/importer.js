@@ -12,7 +12,7 @@ var ContainerModel = require(apiPath + 'container/container.model')
 var fs = require('fs');
 var _  = require('lodash');
 
-var containers = {};
+var top = { containers: [] };
 
 console.log("Reading files form "+ importDir);
 
@@ -23,17 +23,18 @@ function parseFiles() {
       fs.readFile(fullPath, function(er, data) {
         var content = JSON.parse(data);
         var lang = file.slice(0, -5);
-        parseFile(containers, 'withoutNamespace', content, lang);
+        parseContent(top, 'withoutNamespace', content, lang);
       });
     });
   });
 }
 
-function parseFile(container, accessor, content, lang) {
+function parseContent(container, accessor, content, lang) {
   for (var key in content) {
     var val = content[key];
+    var cont;
     if (typeof val === 'string') {
-      var cont = getContainer(container, accessor);
+      cont = getContainer(container, accessor);
       addValToContainer(cont, key, val, lang);
     }
   }
@@ -53,12 +54,17 @@ function Value(name) {
 function Translation(translation, lang) {
   this.translation = translation;
   this.lang = lang;
-
 }
 
 function getContainer(parent, name) {
-  var cont = parent[name];
-  if (!cont) cont = parent[name] = new Container(name);
+  var conts = parent.containers;
+  var cont = _.find(conts, function(el) {
+    return el.name === name;
+  });
+  if (!cont) {
+    cont = new Container(name);
+    conts.push(cont);
+  }
   return cont;
 }
 
