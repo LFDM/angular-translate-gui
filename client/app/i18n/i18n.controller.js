@@ -41,8 +41,15 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         var subContainer = $scope.newContainer({ values: [], containers: [] });
         childScope.container.containers.push(subContainer);
         childScope.deferredUpdate();
+        childScope.$emit('trslChange');
       };
     };
+
+    function Value(trsls) {
+      this.dirty = true;
+      this.translations = trsls;
+      this.createdAt = new Date().toJSON();
+    }
 
     $scope.valueFactory = function(childScope) {
       return function() {
@@ -50,7 +57,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         var trsls = _.map($scope.languages, function(lang) {
           return { lang: lang, dirty: true };
         });
-        cont.values.push({ translations: trsls, dirty: true });
+        var value = new Value(trsls);
+
+        cont.values.push(value);
+
         cont.dirty = true;
         childScope.deferredUpdate();
       };
@@ -67,8 +77,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return function() {
         removalConfirmed().then(function(result) {
           if (result) {
+            console.log(containers, container);
             var i = containers.indexOf(container);
             containers.splice(i, 1);
+            console.log(i);
             fn();
           }
         });
