@@ -59,28 +59,23 @@ exports.index = function(req, res) {
   Dump.find(function (err, dumps) {
     if(err) { return handleError(res, err); }
     var zip = new AdmZip();
-    var data = {
-      a: "asdfdsf sdfdsfds ",
-      b: 12321,
-      c: 2343,
-      d: "sdfsdfdsfsd",
-      e: {
-        f: 34234,
-        g: "sdfdsf",
-        h: {
-          i: [1, 2, 3]
-        }
-      }
-    };
-    zip.addFile("data.json", new Buffer(JSON.stringify(data)), "comment about data");
-    zip.addFile("data2.json", new Buffer(JSON.stringify(data)), "comment about data2");
+    var zipname = "translations.zip";
 
-    var buffer = zip.toBuffer();
-    res.set('Content-Type', 'multipart/x-zip');
-    var filename = "data.zip";
-    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-    res.send(buffer);
-    return res.json(200, dumps);
+    generateDump(function(result) {
+      for (var lang in result) {
+        var content = result[lang];
+        var filename = lang + '.json';
+        var json = new Buffer(JSON.stringify(content, null, "  "));
+        zip.addFile(filename, json);
+      }
+
+      var buffer = zip.toBuffer();
+      res.set('Content-Type', 'multipart/x-zip');
+      res.setHeader('Content-disposition', 'attachment; filename=' + zipname);
+      res.send(buffer);
+      return res.json(200, result);
+    });
+
   });
 };
 
