@@ -20,6 +20,11 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
 
         scope.$watch('value.dirty', switchClasses);
 
+        scope.$on('mainChange', function() {
+          scope.value.dirty = true;
+          scope.$broadcast('mainDirty');
+          scope.deferredUpdate();
+        });
 
         scope.$on('trslChange', function() {
           if (scope.allClean(scope.value.translations)) {
