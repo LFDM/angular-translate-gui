@@ -73,6 +73,16 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }).result;
     }
 
+    $scope.removeHelper = function(containers, container, fn) {
+      removalConfirmed().then(function(result) {
+        if (result) {
+          var i = containers.indexOf(container);
+          containers.splice(i, 1);
+          fn();
+        }
+      });
+    };
+
     $scope.removeFactory = function(containers, container, fn) {
       return function() {
         removalConfirmed().then(function(result) {
