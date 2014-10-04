@@ -29,6 +29,11 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           timer = $timeout(update, 1500);
         };
 
+        scope.immediateUpdate = function() {
+          if (timer) $timeout.cancel(timer);
+          update();
+        };
+
         scope.addSubContainer = scope.subContainerFactory(scope);
         scope.addValue = scope.valueFactory(scope);
 

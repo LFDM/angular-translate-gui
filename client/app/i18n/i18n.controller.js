@@ -50,7 +50,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
             containers: []
           });
           childScope.container.containers.unshift(subContainer);
-          childScope.deferredUpdate();
+          childScope.immediateUpdate();
           childScope.$emit('trslChange');
           $scope.autoFocus = true;
         });
@@ -82,7 +82,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
           cont.dirty = true;
           $scope.autoFocus = true;
-          childScope.deferredUpdate();
+          childScope.immediateUpdate();
         });
       };
     };

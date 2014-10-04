@@ -58,7 +58,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
         scope.remove = function() {
           scope.removeHelper(scope.container.values, scope.value, function() {
             scope.$emit(VALUE_CHANGE);
-            scope.deferredUpdate();
+            scope.immediateUpdate();
           });
         };
       },
