@@ -10,6 +10,8 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
       link: function(scope) {
         function checkStatus() { containerHelper.checkStatus(scope); }
 
+        scope.title = 'Sub-Container';
+
         containerHelper.nameWatch(scope);
         containerHelper.dirtyWatch(scope, function() {
           scope.$emit(SC_CHANGE);
@@ -28,7 +30,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
           });
         };
       },
-      templateUrl: 'app/i18n/sub_container.directive.html'
+      templateUrl: 'app/i18n/container.directive.html'
     };
   }
 ]);
