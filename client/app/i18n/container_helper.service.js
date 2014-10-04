@@ -19,7 +19,6 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
 
     this.nameWatch = function(scope) {
       scope.$watch('container.name', function(newVal, oldVal) {
-        console.log(newVal);
         if (!oldVal) self.checkStatus(scope);
         if (!newVal) scope.container.dirty = true;
       });
