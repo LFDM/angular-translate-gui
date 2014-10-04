@@ -3,8 +3,6 @@
 angular.module('arethusaTranslateGuiApp').directive('subContainer', [
   'containerHelper',
   function(containerHelper) {
-    var DIRTY = 'dirty-bg';
-    var CLEAN = 'clean-bg';
     var SC_CHANGE = 'subcontainerChange';
 
     return {
@@ -13,9 +11,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
         function checkStatus() { containerHelper.checkStatus(scope); }
 
         containerHelper.nameWatch(scope);
-
-        scope.$watch('container.dirty', function(newVal) {
-          scope.statusClass = newVal ? DIRTY : CLEAN;
+        containerHelper.dirtyWatch(scope, function() {
           scope.$emit(SC_CHANGE);
         });
 

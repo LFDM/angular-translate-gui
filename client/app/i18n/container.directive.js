@@ -16,10 +16,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         }
 
         containerHelper.nameWatch(scope);
-
-        scope.$watch('container.dirty', function(newVal) {
-          scope.statusClass = newVal ? 'dirty-bg' : 'clean-bg';
-        });
+        containerHelper.dirtyWatch(scope);
 
         scope.$on('valueChange', checkStatus);
         scope.$on('subcontainerChange', checkStatus);

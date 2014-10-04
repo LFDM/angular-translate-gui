@@ -4,6 +4,9 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
   function() {
     var self = this;
 
+    var DIRTY = 'dirty-bg';
+    var CLEAN = 'clean-bg';
+
     this.checkStatus = function(scope) {
       var cont = scope.container;
       if (cont.name && scope.allClean(cont, 'containers') && scope.allClean(cont, 'values')) {
@@ -19,6 +22,13 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
         console.log(newVal);
         if (!oldVal) self.checkStatus(scope);
         if (!newVal) scope.container.dirty = true;
+      });
+    };
+
+    this.dirtyWatch = function(scope, fn) {
+      scope.$watch('container.dirty', function(newVal) {
+        scope.statusClass = newVal ? DIRTY : CLEAN;
+        if (fn) fn();
       });
     };
   }
