@@ -23,20 +23,18 @@ function parseFiles() {
       fs.readFile(fullPath, function(er, data) {
         var content = JSON.parse(data);
         var lang = file.slice(0, -5);
-        parseFile(content, lang);
+        parseFile(containers, 'withoutNamespace', content, lang);
       });
     });
   });
 }
 
-var topContainer = 'withoutNamespace';
-
-function parseFile(content, lang) {
+function parseFile(container, accessor, content, lang) {
   for (var key in content) {
     var val = content[key];
     if (typeof val === 'string') {
-      var cont = getContainer(containers, topContainer);
-      addValToContainer(cont, key, val, lang)
+      var cont = getContainer(container, accessor);
+      addValToContainer(cont, key, val, lang);
     }
   }
 }
