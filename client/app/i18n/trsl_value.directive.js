@@ -14,7 +14,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
       link: function(scope) {
         function switchClassAndNotify(newVal, oldVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
-          if (newVal !== oldVal) scope.$emit(VALUE_CHANGE, newVal);
+          if (newVal !== oldVal) scope.$emit(VALUE_CHANGE, scope.value);
         }
 
         function isClean() {

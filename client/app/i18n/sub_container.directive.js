@@ -22,6 +22,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
         function updateStatsAndCheck(ev, el) {
           var stats = scope.getStats(scope.container);
           scope.updateValStats(stats, el);
+          checkStatus();
         }
 
 

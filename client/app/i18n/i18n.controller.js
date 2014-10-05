@@ -268,6 +268,11 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }
     };
 
+    function updateVal(ev, val) {
+      $scope.updateValStats($scope.stats.total, val);
+    }
+
     $scope.$on('containerRemoved', removeFromStatsStore);
+    $scope.$on('valueChange', updateVal);
   }
 ]);
