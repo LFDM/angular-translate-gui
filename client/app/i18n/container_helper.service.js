@@ -11,9 +11,15 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
       return scope.getStats(scope.container);
     }
 
+    function isDirty(scope) {
+      return stats(scope).dirty || _.find(scope.container.containers, function(el) {
+        return el.dirty;
+      });
+    }
+
     this.checkStatus = function(scope) {
       var cont = scope.container;
-      if (cont.name && !stats(scope).dirty) {
+      if (cont.name && !isDirty(scope)) {
         scope.container.dirty = false;
       } else {
         scope.container.dirty = true;
