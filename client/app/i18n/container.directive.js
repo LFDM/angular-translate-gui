@@ -7,7 +7,9 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
     return {
       restrict: 'A',
       link: function(scope) {
-        function checkStatus() { containerHelper.checkStatus(scope); }
+        function checkStatus() {
+          containerHelper.checkStatus(scope);
+        }
 
         scope.title = 'Container';
 
@@ -20,7 +22,14 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         containerHelper.nameWatch(scope);
         containerHelper.dirtyWatch(scope);
 
+        function addToStats(ev, el) {
+          var stats = scope.getStats(scope.container);
+          scope.addStats(stats, el);
+          scope.addStats(scope.stats.total, el);
+        }
+
         scope.$on('valueChange', checkStatus);
+        scope.$on('valueAdded', addToStats);
         scope.$on('subcontainerChange', checkStatus);
 
         var timer;

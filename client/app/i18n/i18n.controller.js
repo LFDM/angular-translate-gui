@@ -109,6 +109,17 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return $scope.stats[el._id] || {};
     };
 
+    $scope.addStats = function(stats, value) {
+      stats.total += 1;
+      if (value.dirty) {
+        stats.dirty += 1;
+        for (var i = value.translations.length - 1; i >= 0; i--) {
+          var trsl = value.translations[i];
+          if (trsl.dirty) stats.lang[trsl.lang] += 1;
+        }
+      }
+    };
+
     Container.query(function(res) {
       $scope.containers = res;
       setup(res);
@@ -134,6 +145,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     $scope.addContainer = function() {
       var cont = $scope.newContainer();
       cont.$save(function() {
+        addToStatsStore(cont);
         $scope.containers.unshift(cont);
       });
     };
@@ -146,6 +158,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
             values: [],
             containers: []
           });
+          addToStatsStore(subContainer);
           childScope.container.containers.unshift(subContainer);
           childScope.immediateUpdate();
           childScope.$emit('trslChange');
@@ -187,6 +200,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
           cont.dirty = true;
           $scope.autoFocus = true;
+          childScope.$emit('valueAdded', value);
           childScope.immediateUpdate();
         });
       };
@@ -215,8 +229,8 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         var clean = true;
         for (var i = container.length - 1; i >= 0; i--){
           if (container[i].dirty) {
-              clean = false;
-              break;
+            clean = false;
+            break;
           }
         }
         return clean;

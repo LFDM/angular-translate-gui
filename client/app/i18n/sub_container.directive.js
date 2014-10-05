@@ -17,7 +17,13 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
           scope.$emit(SC_CHANGE);
         });
 
+        function addToStats(ev, el) {
+          var stats = scope.getStats(scope.container);
+          scope.addStats(stats, el);
+        }
+
         scope.$on('valueChange', checkStatus);
+        scope.$on('valueAdded', addToStats);
         scope.$on('subcontainerChange', checkStatus);
 
         scope.addSubContainer = scope.subContainerFactory(scope);
