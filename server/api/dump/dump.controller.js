@@ -67,7 +67,7 @@ exports.index = function(req, res) {
     }
 
     var buffer = zip.toBuffer();
-    res.set('Content-Type', 'multipart/x-zip; charset=utf-8');
+    res.set('Content-Type', 'application/zip; charset=utf-8');
     res.setHeader('Content-disposition', 'attachment; filename=' + zipname);
     res.send(buffer);
     return res.json(200);
