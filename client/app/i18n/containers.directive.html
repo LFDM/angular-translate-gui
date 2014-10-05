@@ -1,0 +1,16 @@
+<div class="small-12 columns">
+  <div ng-if="showIndex" class="small-3 columns">
+    Index
+  </div>
+  <div
+    infinite-scroll="infiniteScroll()"
+    infinite-scroll-distance="2"
+    class="small-12 columns">
+    <div
+      ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
+      class="fade columns" ng-class="{ 'small-6': !showIndex, 'small-12': showIndex }">
+      <div container/>
+    </div>
+  </div>
+</div>
+
