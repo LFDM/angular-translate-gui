@@ -8,6 +8,8 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
     return {
       restrict: 'A',
       link: function(scope) {
+        scope.s = scope.getStats(scope.container);
+
         function checkStatus() { containerHelper.checkStatus(scope); }
 
         scope.title = 'Sub-Container';
@@ -16,6 +18,12 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
         containerHelper.dirtyWatch(scope, function() {
           scope.$emit(SC_CHANGE);
         });
+
+        function updateStatsAndCheck(ev, el) {
+          var stats = scope.getStats(scope.container);
+          scope.updateValStats(stats, el);
+        }
+
 
         function addToStats(ev, el) {
           var stats = scope.getStats(scope.container);
@@ -34,7 +42,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
           scope.updateTrslStats(stats, el);
         }
 
-        scope.$on('valueChange', checkStatus);
+        scope.$on('valueChange', updateStatsAndCheck);
         scope.$on('valueAdded', addToStats);
         scope.$on('valueRemoved', removeFromStats);
         scope.$on('trslChange', updateTrslStats);
