@@ -128,6 +128,11 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       updateStats(stats, value, -1);
     };
 
+    $scope.updateTrslStats = function(stats, trsl) {
+      var counter = trsl.dirty ? 1 : -1;
+      stats.lang[trsl.lang] += counter;
+    };
+
     Container.query(function(res) {
       $scope.containers = res;
       setup(res);

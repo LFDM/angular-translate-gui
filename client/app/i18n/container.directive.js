@@ -26,17 +26,26 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
           var stats = scope.getStats(scope.container);
           scope.addStats(stats, el);
           scope.addStats(scope.stats.total, el);
+          checkStatus();
         }
 
         function removeFromStats(ev, el) {
           var stats = scope.getStats(scope.container);
           scope.removeStats(stats, el);
           scope.removeStats(scope.stats.total, el);
+          checkStatus();
+        }
+
+        function updateTrslStats(ev, el) {
+          var stats = scope.getStats(scope.container);
+          scope.updateTrslStats(stats, el);
+          scope.updateTrslStats(scope.stats.total, el);
         }
 
         scope.$on('valueChange', checkStatus);
         scope.$on('valueAdded', addToStats);
         scope.$on('valueRemoved', removeFromStats);
+        scope.$on('trslChange', updateTrslStats);
         scope.$on('subcontainerChange', checkStatus);
 
         var timer;
