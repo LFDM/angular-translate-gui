@@ -5,14 +5,98 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   '$resource',
   '$modal',
   function($scope, $resource, $modal) {
+    $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
+
     var Container = $resource('api/containers/:id', { id: '@_id' }, {
       update: { method: 'PUT'}
     });
 
     var Uid = $resource('/api/uid');
 
+    function LangStats() {
+      for (var i = $scope.languages.length - 1; i >= 0; i--) {
+        var lang = $scope.languages[i];
+        this[lang] = 0;
+      }
+    }
+
+    function Stats() {
+      this.total = 0;
+      this.dirty = 0;
+      this.lang = new LangStats();
+    }
+
+    function addValStats(dirty, elements) {
+      for (var i = elements.length - 1; i >= 0; i--) {
+        var el = elements[i];
+        el.stats.total += 1;
+        if (dirty) el.stats.dirty += 1;
+      }
+    }
+
+    function addTrslStats(lang, dirty, elements) {
+      if (dirty) {
+        for (var i = elements.length - 1; i >= 0; i--){
+          elements[i].stats.lang[lang] += 1;
+        }
+      }
+    }
+
+    function addMissingTranslations(trsls) {
+      var langs = $scope.languages;
+      if (langs.length !== trsls.length) {
+        var missing = angular.copy(langs);
+        for (var i = trsls.length - 1; i >= 0; i--) {
+          var idx = missing.indexOf(trsls[i].lang);
+          missing.splice(idx, 1);
+        }
+        for (var id = missing.length - 1; id >= 0; id--) {
+          trsls.push(new Translation(missing[id]));
+        }
+      }
+    }
+
+    function parseTranslations(translations, elements) {
+      addMissingTranslations(translations);
+      for (var i = translations.length - 1; i >= 0; i--) {
+        var trsl = translations[i];
+        addTrslStats(trsl.lang, trsl.dirty, elements);
+      }
+    }
+
+    function parseValues(values, elements) {
+      for (var i = values.length - 1; i >= 0; i--){
+        var val = values[i];
+        addValStats(val.dirty, elements);
+        parseTranslations(val.translations, elements);
+      }
+    }
+
+    function parseContainers(containers, elements) {
+      for (var i = containers.length - 1; i >= 0; i--){
+        var container = containers[i];
+        elements.push(container);
+        container.stats = new Stats();
+        parseValues(container.values, elements);
+        parseContainers(container.containers, elements);
+        elements.pop();
+      }
+    }
+
+    function parseData(containers) {
+      var total = { stats: new Stats() };
+      var elements = [ total ];
+      parseContainers(containers, elements);
+      return total.stats;
+    }
+
+    function setup(containers) {
+      $scope.stats = parseData(containers);
+    }
+
     Container.query(function(res) {
       $scope.containers = res;
+      setup(res);
     });
 
     $scope.newContainer = function(params) {
@@ -22,8 +106,6 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }, params);
       return new Container(params);
     };
-
-    $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
 
     $scope.adminMode = true;
     $scope.$watch('adminMode', function(newVal) {
@@ -128,7 +210,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     $scope.maxItemsShown = 0;
     $scope.infiniteScroll = function() {
-      $scope.maxItemsShown += 2;
+      $scope.maxItemsShown += 5;
     };
     $scope.resetMaxItems = function() {
       if ($scope.maxItemsShown > 5) {
