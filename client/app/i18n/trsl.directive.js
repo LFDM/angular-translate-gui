@@ -21,14 +21,16 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         var main = isMain(scope.trsl.lang);
         var eventName = getEventName(main);
 
-        function switchClasses(newVal) {
+        function switchClassesAndNotify(newVal, oldVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
           scope.toggleIcon = newVal ? 'check' : 'remove';
+          if (newVal !== oldVal) {
+            scope.$emit(eventName, scope.trsl);
+          }
         }
 
         function changeStatus(bool) {
           scope.trsl.dirty = bool;
-          scope.$emit(eventName);
         }
 
         function setClean() {
@@ -37,14 +39,6 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
 
         function setDirty() {
           changeStatus(true);
-        }
-
-        function makeDirty() {
-          scope.trsl.dirty = true;
-        }
-
-        function makeClean() {
-          scope.trsl.dirty = false;
         }
 
         scope.toggleStatus = function() {
@@ -62,11 +56,11 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         };
 
         if (main) {
-          makeClean();
+          if (scope.trsl.dirty) setClean();
           scope.statusClass = '';
         } else {
-          scope.$watch('trsl.dirty', switchClasses);
-          scope.$on('mainDirty', makeDirty);
+          scope.$watch('trsl.dirty', switchClassesAndNotify);
+          scope.$on('mainDirty', setDirty);
         }
       },
       templateUrl: 'app/i18n/trsl.directive.html'
