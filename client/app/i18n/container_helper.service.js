@@ -7,9 +7,13 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
     var DIRTY = 'dirty-bg';
     var CLEAN = 'clean-bg';
 
+    function stats(scope) {
+      return scope.getStats(scope.container);
+    }
+
     this.checkStatus = function(scope) {
       var cont = scope.container;
-      if (cont.name && scope.allClean(cont, 'containers') && scope.allClean(cont, 'values')) {
+      if (cont.name && !stats(scope).dirty) {
         scope.container.dirty = false;
       } else {
         scope.container.dirty = true;

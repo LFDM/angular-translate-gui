@@ -105,6 +105,10 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       $scope.stats.total = parseData(containers);
     }
 
+    $scope.getStats = function(el) {
+      return $scope.stats[el._id] || {};
+    };
+
     Container.query(function(res) {
       $scope.containers = res;
       setup(res);
