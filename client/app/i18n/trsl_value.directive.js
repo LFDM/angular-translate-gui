@@ -40,8 +40,11 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           for (var i = trsls.length - 1; i >= 0; i--){
             var trsl = trsls[i];
             if (trsl.lang !== CONFIG.main) {
-              trsl.dirty = bool;
-              scope.$emit(TRSL_CHANGE, trsl);
+              var old = trsl.dirty;
+              if (old !== bool) {
+                trsl.dirty = bool;
+                scope.$emit(TRSL_CHANGE, trsl);
+              }
             }
           }
         }
