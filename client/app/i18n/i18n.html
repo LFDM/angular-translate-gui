@@ -1,11 +1,25 @@
 <div class="row panel">
   <div>
     <span>
-      <input ng-model="nameFilter" ng-minlength="2" ng-change="resetMaxItems()" type="search"/>
+      <input
+        placeholder="Filter by Container name"
+        ng-model="nameFilter"
+        ng-minlength="2"
+        ng-change="resetMaxItems()" type="search"/>
     </span>
     <span class="button" ng-click="addContainer()">New Container</span>
     <span class="button center success" dump-dialog>Dump!</span>
     <span class="button right" ng-click="toggleMode()">{{ modeText }}</span>
+  </div>
+  <div class="left">
+    <input
+      type="checkbox"
+      ng-model="dirtyOnly"/>
+    <label>Hide clean containers</label>
+    <input
+      type="checkbox"
+      ng-model="showIndex">
+    <label>Show Index</label>
   </div>
   <div class="right" i18n-stats="stats.total"/>
 </div>
