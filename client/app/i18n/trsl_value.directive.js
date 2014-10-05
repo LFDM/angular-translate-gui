@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('arethusaTranslateGuiApp').directive('trslValue', [
-  function() {
+  'CONFIG',
+  function(CONFIG) {
     var DIRTY = 'dirty-bg';
     var CLEAN = 'clean-bg';
     var TRSL_CHANGE = 'trslChange';
@@ -38,7 +39,10 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           var trsls = scope.value.translations;
           for (var i = trsls.length - 1; i >= 0; i--){
             var trsl = trsls[i];
-            trsl.dirty = bool;
+            if (trsl.lang !== CONFIG.main) {
+              trsl.dirty = bool;
+              scope.$emit(TRSL_CHANGE, trsl);
+            }
           }
         }
 
