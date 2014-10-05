@@ -191,7 +191,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
           addToStatsStore(subContainer);
           childScope.container.containers.unshift(subContainer);
           childScope.immediateUpdate();
-          childScope.$emit('trslChange');
+          childScope.$emit('subcontainerChange');
           $scope.autoFocus = true;
         });
       };
