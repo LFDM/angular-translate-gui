@@ -7,6 +7,11 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   function($scope, $resource, $modal) {
     $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
 
+    // We cannot store stats directly with resources, as we don't
+    // store them in the DB. We therefore populate a dedicated
+    // stats store ourselves.
+    $scope.stats = {};
+
     var Container = $resource('api/containers/:id', { id: '@_id' }, {
       update: { method: 'PUT'}
     });
@@ -29,15 +34,15 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     function addValStats(dirty, elements) {
       for (var i = elements.length - 1; i >= 0; i--) {
         var el = elements[i];
-        el.stats.total += 1;
-        if (dirty) el.stats.dirty += 1;
+        el.total += 1;
+        if (dirty) el.dirty += 1;
       }
     }
 
     function addTrslStats(lang, dirty, elements) {
       if (dirty) {
         for (var i = elements.length - 1; i >= 0; i--){
-          elements[i].stats.lang[lang] += 1;
+          elements[i].lang[lang] += 1;
         }
       }
     }
@@ -72,11 +77,17 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }
     }
 
+    function addToStatsStore(el) {
+      var stats = new Stats();
+      $scope.stats[el._id] = stats;
+      return stats;
+    }
+
     function parseContainers(containers, elements) {
       for (var i = containers.length - 1; i >= 0; i--){
         var container = containers[i];
-        elements.push(container);
-        container.stats = new Stats();
+        var stats = addToStatsStore(container);
+        elements.push(stats);
         parseValues(container.values, elements);
         parseContainers(container.containers, elements);
         elements.pop();
@@ -84,14 +95,14 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     }
 
     function parseData(containers) {
-      var total = { stats: new Stats() };
+      var total = new Stats();
       var elements = [ total ];
       parseContainers(containers, elements);
-      return total.stats;
+      return total;
     }
 
     function setup(containers) {
-      $scope.stats = parseData(containers);
+      $scope.stats.total = parseData(containers);
     }
 
     Container.query(function(res) {
