@@ -95,3 +95,23 @@ table {
   margin-left: 1rem;
   margin-bottom: 1rem;
 }
+
+.filled-grid {
+  -moz-column-count: 2;
+  -moz-column-gap: 0;
+  -moz-column-fill: balance;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 0;
+  -webkit-column-fill: balance;
+  column-count: 2;
+  column-gap: 0;
+  column-fill: balance;
+  padding: .935rem;
+}
+
+.filled-grid-item {
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  column-break-inside: avoid;
+  padding: 0 .935rem;
+}
