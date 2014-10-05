@@ -6,6 +6,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
     var CLEAN = 'clean-bg';
     var TRSL_CHANGE = 'trslChange';
     var VALUE_CHANGE = 'valueChange';
+    var VALUE_REMOVED = 'valueRemoved';
 
     return {
       restrict: 'A',
@@ -57,6 +58,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
 
         scope.remove = function() {
           scope.removeHelper(scope.container.values, scope.value, function() {
+            scope.$emit(VALUE_REMOVED, scope.value);
             scope.$emit(VALUE_CHANGE);
             scope.immediateUpdate();
           });

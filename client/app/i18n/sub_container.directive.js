@@ -22,8 +22,14 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
           scope.addStats(stats, el);
         }
 
+        function removeFromStats(ev, el) {
+          var stats = scope.getStats(scope.container);
+          scope.removeStats(stats, el);
+        }
+
         scope.$on('valueChange', checkStatus);
         scope.$on('valueAdded', addToStats);
+        scope.$on('valueRemoved', removeFromStats);
         scope.$on('subcontainerChange', checkStatus);
 
         scope.addSubContainer = scope.subContainerFactory(scope);

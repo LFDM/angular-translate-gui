@@ -109,15 +109,23 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return $scope.stats[el._id] || {};
     };
 
-    $scope.addStats = function(stats, value) {
-      stats.total += 1;
+    function updateStats(stats, value, count) {
+      stats.total += count;
       if (value.dirty) {
-        stats.dirty += 1;
+        stats.dirty += count;
         for (var i = value.translations.length - 1; i >= 0; i--) {
           var trsl = value.translations[i];
-          if (trsl.dirty) stats.lang[trsl.lang] += 1;
+          if (trsl.dirty) stats.lang[trsl.lang] += count;
         }
       }
+    }
+
+    $scope.addStats = function(stats, value) {
+      updateStats(stats, value, 1);
+    };
+
+    $scope.removeStats = function(stats, value) {
+      updateStats(stats, value, -1);
     };
 
     Container.query(function(res) {
