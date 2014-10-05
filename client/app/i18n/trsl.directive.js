@@ -2,8 +2,8 @@
 
 angular.module('arethusaTranslateGuiApp').directive('trsl', [
   '$timeout',
-  function($timeout) {
-    var MAIN_LANGUAGE = 'en';
+  'CONFIG',
+  function($timeout, CONFIG) {
     var DIRTY = 'dirty-bg-dark';
     var CLEAN = 'clean-bg-dark';
 
@@ -12,7 +12,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
     }
 
     function isMain(lang) {
-      return MAIN_LANGUAGE === lang;
+      return CONFIG.main === lang;
     }
 
     return {

@@ -4,8 +4,9 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   '$scope',
   '$resource',
   '$modal',
-  function($scope, $resource, $modal) {
-    $scope.languages = ['en', 'de', 'fr', 'it', 'hr'];
+  'CONFIG',
+  function($scope, $resource, $modal, CONFIG) {
+    $scope.languages = CONFIG.languages;
 
     // We cannot store stats directly with resources, as we don't
     // store them in the DB. We therefore populate a dedicated
