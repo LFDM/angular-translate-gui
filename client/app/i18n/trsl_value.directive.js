@@ -32,22 +32,6 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
           scope.$emit(TRSL_CHANGE);
         }
 
-        function addMissingTranslations() {
-          var langs = scope.languages;
-          var trsls = scope.value.translations;
-          if (langs.length !== trsls.length) {
-            var missing = angular.copy(langs);
-            for (var i = trsls.length - 1; i >= 0; i--){
-              var idx = missing.indexOf(trsls[i].lang);
-              missing.splice(idx, 1);
-            }
-            for (var id = missing.length - 1; id >= 0; id--){
-              trsls.push(scope.newTranslation(missing[id]));
-            }
-            scope.deferredUpdate();
-          }
-        }
-
         scope.$watch('value.dirty', switchClassAndNotify);
 
         scope.$watch('value.name', function(newVal, oldVal) {
@@ -77,8 +61,6 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
             scope.immediateUpdate();
           });
         };
-
-        addMissingTranslations();
       },
       templateUrl: 'app/i18n/trsl_value.directive.html'
     };
