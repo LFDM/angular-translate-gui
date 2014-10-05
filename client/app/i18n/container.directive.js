@@ -64,6 +64,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
 
         scope.remove = function() {
           scope.removeHelper(scope.containers, scope.container, function() {
+            scope.$parent.$emit('containerRemoved', scope.container);
             scope.container.$remove();
           });
         };

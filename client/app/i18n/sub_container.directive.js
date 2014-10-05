@@ -46,6 +46,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
         scope.remove = function() {
           scope.removeHelper(scope.$parent.container.containers, scope.container, function() {
             // We can skip this scope, as it's removed anyway!
+            scope.$parent.$emit('containerRemoved', scope.container);
             scope.$parent.$emit(SC_CHANGE);
             scope.immediateUpdate();
           });

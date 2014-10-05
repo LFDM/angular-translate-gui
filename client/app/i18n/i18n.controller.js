@@ -83,6 +83,22 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return stats;
     }
 
+    $scope.substractFromTotal = function(parent, stats) {
+      parent.total -= stats.total;
+      parent.dirty -= stats.dirty;
+      var parLang = parent.lang;
+      var sttLang = stats.lang;
+      for (var lang in parLang) {
+        parLang[lang] -= sttLang[lang];
+      }
+    };
+
+    function removeFromStatsStore(ev, el) {
+      var stats = $scope.stats[el._id];
+      delete $scope.stats[el._id];
+      $scope.substractFromTotal($scope.stats.total, stats);
+    }
+
     function parseContainers(containers, elements) {
       for (var i = containers.length - 1; i >= 0; i--){
         var container = containers[i];
@@ -245,5 +261,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         $scope.maxItemsShown = 4;
       }
     };
+
+    $scope.$on('containerRemoved', removeFromStatsStore);
   }
 ]);
