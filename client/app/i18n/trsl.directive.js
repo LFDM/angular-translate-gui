@@ -57,10 +57,6 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         };
 
         if (main) {
-          if (scope.trsl.dirty) {
-            scope.trsl.dirty = false;
-            scope.$emit('trslChange', scope.trsl);
-          }
           scope.statusClass = '';
         } else {
           scope.$watch('trsl.dirty', switchClasses);

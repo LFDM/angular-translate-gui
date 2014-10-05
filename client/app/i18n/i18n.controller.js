@@ -210,7 +210,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     function Translation(lang) {
       this.lang = lang;
-      this.dirty = true;
+      this.dirty = CONFIG.main !== lang;
     }
 
     $scope.newTranslation = function(lang) {
