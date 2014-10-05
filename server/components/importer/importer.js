@@ -1,4 +1,5 @@
 var importDir = process.argv[2];
+var mainLang  = process.argv[3] || 'en';
 
 if (!importDir) {
   console.log('No directory path given. Aborting!');
@@ -71,6 +72,7 @@ function Value(name) {
 function Translation(translation, lang) {
   this.translation = translation;
   this.lang = lang;
+  this.dirty = lang !== mainLang;
 }
 
 function getContainer(parent, name) {
