@@ -8,8 +8,6 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
     return {
       restrict: 'A',
       link: function(scope) {
-        scope.s = scope.getStats(scope.container);
-
         scope.title = 'Sub-Container';
 
         containerHelper.nameWatch(scope);

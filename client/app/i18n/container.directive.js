@@ -7,8 +7,6 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
     return {
       restrict: 'A',
       link: function(scope) {
-        scope.s = scope.getStats(scope.container);
-
         scope.title = 'Container';
 
         function update() {
