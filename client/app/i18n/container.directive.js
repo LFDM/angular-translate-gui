@@ -9,16 +9,6 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
       link: function(scope) {
         scope.s = scope.getStats(scope.container);
 
-        function checkStatus() {
-          containerHelper.checkStatus(scope);
-        }
-
-        function updateStatsAndCheck(ev, el) {
-          var stats = scope.getStats(scope.container);
-          scope.updateValStats(stats, el);
-          checkStatus();
-        }
-
         scope.title = 'Container';
 
         function update() {
@@ -29,29 +19,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
 
         containerHelper.nameWatch(scope);
         containerHelper.dirtyWatch(scope);
-
-        function addToStats(ev, el) {
-          var stats = scope.getStats(scope.container);
-          scope.addStats(stats, el);
-          checkStatus();
-        }
-
-        function removeFromStats(ev, el) {
-          var stats = scope.getStats(scope.container);
-          scope.removeStats(stats, el);
-          checkStatus();
-        }
-
-        function updateTrslStats(ev, el) {
-          var stats = scope.getStats(scope.container);
-          scope.updateTrslStats(stats, el);
-        }
-
-        scope.$on('valueChange', updateStatsAndCheck);
-        scope.$on('valueAdded', addToStats);
-        scope.$on('valueRemoved', removeFromStats);
-        scope.$on('trslChange', updateTrslStats);
-        scope.$on('subcontainerChange', checkStatus);
+        containerHelper.addEventListeners(scope);
 
         var timer;
         scope.deferredUpdate = function() {

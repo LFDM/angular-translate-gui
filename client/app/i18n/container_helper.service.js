@@ -2,8 +2,6 @@
 
 angular.module('arethusaTranslateGuiApp').service('containerHelper', [
   function() {
-    var self = this;
-
     var DIRTY = 'dirty-bg';
     var CLEAN = 'clean-bg';
 
@@ -17,7 +15,7 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
       });
     }
 
-    this.checkStatus = function(scope) {
+    function checkStatus(scope) {
       var cont = scope.container;
       if (cont.name && !isDirty(scope)) {
         scope.container.dirty = false;
@@ -25,11 +23,11 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
         scope.container.dirty = true;
       }
       scope.deferredUpdate();
-    };
+    }
 
     this.nameWatch = function(scope) {
       scope.$watch('container.name', function(newVal, oldVal) {
-        if (!oldVal) self.checkStatus(scope);
+        if (!oldVal) checkStatus(scope);
         if (!newVal) scope.container.dirty = true;
       });
     };
@@ -39,6 +37,48 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
         scope.statusClass = newVal ? DIRTY : CLEAN;
         if (fn) fn();
       });
+    };
+
+
+    // Event Listeners
+
+    function updateStatsAndCheck(scope) {
+      return function(ev, el) {
+        var stats = scope.getStats(scope.container);
+        scope.updateValStats(stats, el);
+        checkStatus(scope);
+      };
+    }
+
+    function addToStats(scope) {
+      return function(ev, el) {
+        var stats = scope.getStats(scope.container);
+        scope.addStats(stats, el);
+        checkStatus(scope);
+      };
+    }
+
+    function removeFromStats(scope) {
+      return function(ev, el) {
+        var stats = scope.getStats(scope.container);
+        scope.removeStats(stats, el);
+        checkStatus();
+      };
+    }
+
+    function updateTrslStats(scope) {
+      return function(ev, el) {
+        var stats = scope.getStats(scope.container);
+        scope.updateTrslStats(stats, el);
+      };
+    }
+
+    this.addEventListeners = function(scope) {
+      scope.$on('valueChange', updateStatsAndCheck(scope));
+      scope.$on('valueAdded', addToStats(scope));
+      scope.$on('valueRemoved', removeFromStats(scope));
+      scope.$on('trslChange', updateTrslStats(scope));
+      scope.$on('subcontainerChange', function() { checkStatus(scope); });
     };
   }
 ]);
