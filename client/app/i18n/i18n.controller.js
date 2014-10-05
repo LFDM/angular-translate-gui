@@ -94,12 +94,6 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }
     };
 
-    function removeFromStatsStore(ev, el) {
-      var stats = $scope.stats[el._id];
-      delete $scope.stats[el._id];
-      $scope.substractFromTotal($scope.stats.total, stats);
-    }
-
     function parseContainers(containers, elements) {
       for (var i = containers.length - 1; i >= 0; i--){
         var container = containers[i];
@@ -268,11 +262,32 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       }
     };
 
+    function removeFromStatsStore(ev, el) {
+      var stats = $scope.stats[el._id];
+      delete $scope.stats[el._id];
+      $scope.substractFromTotal($scope.stats.total, stats);
+    }
+
     function updateVal(ev, val) {
       $scope.updateValStats($scope.stats.total, val);
     }
 
+    function updateTrsl(ev, el) {
+      $scope.updateTrslStats($scope.stats.total, el);
+    }
+
+    function addToStats(ev, el) {
+      $scope.addStats($scope.stats.total, el);
+    }
+
+    function removeFromStats(ev, el) {
+      $scope.removeStats($scope.stats.total, el);
+    }
+
     $scope.$on('containerRemoved', removeFromStatsStore);
     $scope.$on('valueChange', updateVal);
+    $scope.$on('trslChange', updateTrsl);
+    $scope.$on('valueAdded', addToStats);
+    $scope.$on('valueRemoved', removeFromStats);
   }
 ]);

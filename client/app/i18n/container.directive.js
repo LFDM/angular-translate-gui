@@ -33,21 +33,18 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
         function addToStats(ev, el) {
           var stats = scope.getStats(scope.container);
           scope.addStats(stats, el);
-          scope.addStats(scope.stats.total, el);
           checkStatus();
         }
 
         function removeFromStats(ev, el) {
           var stats = scope.getStats(scope.container);
           scope.removeStats(stats, el);
-          scope.removeStats(scope.stats.total, el);
           checkStatus();
         }
 
         function updateTrslStats(ev, el) {
           var stats = scope.getStats(scope.container);
           scope.updateTrslStats(stats, el);
-          scope.updateTrslStats(scope.stats.total, el);
         }
 
         scope.$on('valueChange', updateStatsAndCheck);
