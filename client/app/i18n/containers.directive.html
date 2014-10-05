@@ -5,10 +5,11 @@
   <div
     infinite-scroll="infiniteScroll()"
     infinite-scroll-distance="2"
-    class="small-12 columns">
+    ng-class="containerClass"
+    class="columns">
     <div
       ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
-      class="fade columns" ng-class="{ 'small-6': !showIndex, 'small-12': showIndex }">
+      class="fade columns" ng-class="itemClass">
       <div container/>
     </div>
   </div>
