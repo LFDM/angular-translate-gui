@@ -158,4 +158,8 @@ ul.index-list {
   ul {
     list-style-type: none;
   }
+
+  .index-item-title:hover {
+    background-color: rgb(255, 255, 165);
+  }
 }
