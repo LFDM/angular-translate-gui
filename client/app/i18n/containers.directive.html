@@ -1,17 +1,22 @@
-<div class="small-12 columns">
-  <div ng-if="showIndex" class="small-3 large-2 columns fade slide-left">
-    <div i18n-index/>
-  </div>
-  <div
-    ng-hide="cloak"
-    infinite-scroll="infiniteScroll()"
-    infinite-scroll-distance="2"
-    ng-class="containerClass"
-    class="fade slide-right columns">
+<div class="scroll-container">
+  <div class="small-12 columns" style="height: 100%">
     <div
-      ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
-      class="fade columns" ng-class="itemClass">
-      <div container/>
+      ng-if="showIndex"
+      class="scroll-item small-3 large-2 columns fade slide-left">
+      <div i18n-index/>
+    </div>
+    <div
+      id="scroller"
+      ng-hide="cloak"
+      infinite-scroll="infiniteScroll()"
+      infinite-scroll-distance="2"
+      ng-class="containerClass"
+      class="scroll-item fade slide-right columns">
+      <div
+        ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
+        class="fade columns" ng-class="itemClass">
+        <div container/>
+      </div>
     </div>
   </div>
 </div>
