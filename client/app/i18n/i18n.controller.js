@@ -6,6 +6,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   '$modal',
   'CONFIG',
   function($scope, $resource, $modal, CONFIG) {
+    $scope.showIndex = true;
     $scope.languages = CONFIG.languages;
 
     // We cannot store stats directly with resources, as we don't
