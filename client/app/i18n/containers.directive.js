@@ -22,8 +22,7 @@ angular.module('arethusaTranslateGuiApp').directive('containers', [
        });
 
        function autoScroll(ev, item) {
-         console.log('Scrolling!', item);
-         element.scrollTo(item, 0, 500);
+         element.find('#scroller').scrollTo(item, 0, 500);
        }
 
        scope.$on('scrollToItem', autoScroll);
