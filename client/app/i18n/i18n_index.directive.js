@@ -43,11 +43,7 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexItem', [
          $rootScope.$broadcast('autoScrollRequest', scope.item._id);
        };
      },
-     template: '\
-       <div class="clickable" ng-click="scrollThere()">{{ item.name }}</div>\
-       <ul i18n-index-collection="item.values"/>\
-       <ul i18n-index-collection="item.containers"/>\
-     '
+     templateUrl: 'app/i18n/i18n_index_item.directive.html'
    };
   }
 ]);
