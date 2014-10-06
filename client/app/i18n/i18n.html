@@ -1,12 +1,13 @@
-<div class="row panel">
+<div class="panel header" style="border-radius: 0">
   <div>
-    <span>
-      <input
-        placeholder="Filter by Container name"
-        ng-model="nameFilter"
-        ng-minlength="2"
-        ng-change="resetMaxItems()" type="search"/>
-    </span>
+    <!--Move to Index!-->
+    <!--<span>-->
+      <!--<input-->
+        <!--placeholder="Filter by Container name"-->
+        <!--ng-model="nameFilter"-->
+        <!--ng-minlength="2"-->
+        <!--ng-change="resetMaxItems()" type="search"/>-->
+    <!--</span>-->
     <span class="button small" ng-click="addContainer()">New Container</span>
     <span class="button small center success" dump-dialog>Dump!</span>
     <span class="button small right" ng-click="toggleMode()">{{ modeText }}</span>
