@@ -150,3 +150,12 @@ $header-size: 8.4rem;
   overflow: auto;
   height: 100%;
 }
+
+ul.index-list {
+  margin: 0;
+  list-style-type: none;
+
+  ul {
+    list-style-type: none;
+  }
+}
