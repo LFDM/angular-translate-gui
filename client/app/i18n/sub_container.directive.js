@@ -7,7 +7,7 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
 
     return {
       restrict: 'A',
-      link: function(scope) {
+      link: function(scope, element) {
         scope.title = 'Sub-Container';
 
         containerHelper.nameWatch(scope);
@@ -27,6 +27,8 @@ angular.module('arethusaTranslateGuiApp').directive('subContainer', [
             scope.immediateUpdate();
           });
         };
+
+        scope.scrollWatch(scope, scope.container._id, element);
       },
       templateUrl: 'app/i18n/container.directive.html'
     };

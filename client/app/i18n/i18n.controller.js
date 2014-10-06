@@ -290,5 +290,14 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     $scope.$on('trslChange', updateTrsl);
     $scope.$on('valueAdded', addToStats);
     $scope.$on('valueRemoved', removeFromStats);
+
+    // This should really live in a service...
+    $scope.scrollWatch = function(scope, ownId, element) {
+      scope.$on('autoScrollRequest', function(ev, id) {
+        if (id === ownId) {
+          scope.$emit('scrollToItem', element);
+        }
+      });
+    };
   }
 ]);

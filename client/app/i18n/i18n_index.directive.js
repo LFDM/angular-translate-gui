@@ -31,14 +31,20 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexCollection', [
 ]);
 
 angular.module('arethusaTranslateGuiApp').directive('i18nIndexItem', [
-  function() {
+  '$rootScope',
+  function($rootScope) {
    return {
      restrict: 'A',
      scope: {
        item: '=i18nIndexItem'
      },
+     link: function(scope) {
+       scope.scrollThere = function() {
+         $rootScope.$broadcast('autoScrollRequest', scope.item._id);
+       };
+     },
      template: '\
-       <div>{{ item.name }}</div>\
+       <div class="clickable" ng-click="scrollThere()">{{ item.name }}</div>\
        <ul i18n-index-collection="item.values"/>\
        <ul i18n-index-collection="item.containers"/>\
      '

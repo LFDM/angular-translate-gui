@@ -11,7 +11,7 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
 
     return {
       restrict: 'A',
-      link: function(scope) {
+      link: function(scope, element) {
         function switchClassAndNotify(newVal, oldVal) {
           scope.statusClass = newVal ? DIRTY : CLEAN;
           if (newVal !== oldVal) scope.$emit(VALUE_CHANGE, scope.value);
@@ -78,6 +78,8 @@ angular.module('arethusaTranslateGuiApp').directive('trslValue', [
             scope.immediateUpdate();
           });
         };
+
+        scope.scrollWatch(scope, scope.value._id, element);
       },
       templateUrl: 'app/i18n/trsl_value.directive.html'
     };

@@ -6,7 +6,7 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
   function($timeout, containerHelper) {
     return {
       restrict: 'A',
-      link: function(scope) {
+      link: function(scope, element) {
         scope.title = 'Container';
 
         function update() {
@@ -39,6 +39,8 @@ angular.module('arethusaTranslateGuiApp').directive('container', [
             scope.container.$remove();
           });
         };
+
+        scope.scrollWatch(scope, scope.container._id, element);
       },
       templateUrl: 'app/i18n/container.directive.html'
     };
