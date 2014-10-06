@@ -7,6 +7,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
   'CONFIG',
   function($scope, $resource, $modal, CONFIG) {
     $scope.showIndex = true;
+    $scope.maxItemsShown = 0;
     $scope.languages = CONFIG.languages;
 
     // We cannot store stats directly with resources, as we don't
@@ -152,6 +153,9 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
 
     Container.query(function(res) {
       $scope.containers = res;
+      if ($scope.showIndex) {
+        $scope.maxItemsShown = $scope.containers.length;
+      }
       setup(res);
     });
 
@@ -254,7 +258,6 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       });
     };
 
-    $scope.maxItemsShown = 0;
     $scope.infiniteScroll = function() {
       $scope.maxItemsShown += 5;
     };
