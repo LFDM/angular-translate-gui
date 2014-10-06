@@ -123,3 +123,28 @@ table {
   column-break-inside: avoid;
   padding: 0 .935rem;
 }
+
+body, html {
+  overflow: hidden;
+  height: 100%;
+}
+
+$header-size: 8.4rem;
+
+.header {
+  height: $header-size;
+  width: 100%;
+  position: fixed !important;
+  z-index: 100;
+}
+
+.scroll-container {
+  height: 100%;
+  position: absolute;
+  padding-top: #{$header-size + .6rem};
+}
+
+.scroll-item {
+  overflow: auto;
+  height: 100%;
+}
