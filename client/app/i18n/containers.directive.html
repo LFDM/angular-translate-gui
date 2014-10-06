@@ -1,12 +1,13 @@
 <div class="small-12 columns">
-  <div ng-if="showIndex" class="small-3 columns fade slide-left">
+  <div ng-if="showIndex" class="small-3 large-2 columns fade slide-left">
     <div i18n-index/>
   </div>
   <div
+    ng-hide="cloak"
     infinite-scroll="infiniteScroll()"
     infinite-scroll-distance="2"
     ng-class="containerClass"
-    class="columns">
+    class="fade slide-right columns">
     <div
       ng-repeat="container in containers | filter: { name: nameFilter } | limitTo: maxItemsShown track by container._id"
       class="fade columns" ng-class="itemClass">
