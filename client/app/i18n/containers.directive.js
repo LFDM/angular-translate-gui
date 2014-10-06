@@ -20,6 +20,13 @@ angular.module('arethusaTranslateGuiApp').directive('containers', [
            scope.cloak = false;
          }, 600);
        });
+
+       function autoScroll(ev, item) {
+         console.log('Scrolling!', item);
+         element.scrollTo(item, 0, 500);
+       }
+
+       scope.$on('scrollToItem', autoScroll);
      },
      templateUrl: 'app/i18n/containers.directive.html'
    };
