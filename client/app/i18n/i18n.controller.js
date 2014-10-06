@@ -176,6 +176,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       var cont = $scope.newContainer();
       cont.$save(function() {
         addToStatsStore(cont);
+        $scope.autoFocus = true;
         $scope.containers.unshift(cont);
       });
     };
