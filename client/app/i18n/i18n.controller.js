@@ -157,6 +157,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
         $scope.maxItemsShown = $scope.containers.length;
       }
       setup(res);
+      $scope.$broadcast('dataLoaded');
     });
 
     $scope.newContainer = function(params) {

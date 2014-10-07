@@ -1,4 +1,11 @@
-<div class="scroll-container">
+<div style="height: 100%; padding: 300px" ng-show="rendering">
+  <div class="spinner">
+    <div class="circle"><div class="inner"></div></div>
+  </div>
+  <div class="center" style="color: lightgrey">Rendering data...</div>
+</div>
+
+<div class="scroll-container fade" ng-hide="rendering">
   <div class="small-12 columns" style="height: 100%">
     <div
       ng-if="showIndex"

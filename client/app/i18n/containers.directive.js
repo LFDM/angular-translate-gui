@@ -7,6 +7,17 @@ angular.module('arethusaTranslateGuiApp').directive('containers', [
      restrict: 'A',
      scope: true,
      link: function(scope, element) {
+       scope.$on('dataLoaded', function() {
+         // When new data is loaded the DOM will take a while to update
+         // itself. Let's hide this fact by pushing the content out of the
+         // viewport and show a loading message instead.
+         // Once we are done, we move the DOM elements into the users sight.
+         scope.rendering = true;
+         $timeout(function() {
+           scope.rendering = false;
+         }, 2000);
+       });
+
        scope.$watch('showIndex', function(newVal) {
          if (newVal) {
            scope.itemClass = 'small-12';
