@@ -202,7 +202,8 @@ $spinner-color: lightgrey;
     border: 5px solid transparentize($spinner-color, 0.3);
     border-right: none;
     border-top: none;
-    backgroudn-clip: padding;
+    background-clip: padding;
+    -webkit-background-clip: padding;
     box-shadow: inset 0px 0px 10px transparentize($spinner-color, 0.85);
   }
 }
