@@ -169,3 +169,44 @@ ul.index-list {
     background-color: rgb(255, 255, 165);
   }
 }
+
+// Fancy spinner
+
+.spinner {
+  width: 60px;
+  height: 62px;
+  border-radius: 100%;
+  position: absolute;
+  top: 45%;
+  left: calc(50% - 30px);
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 5px solid transparentize(lightgrey, 0.3);
+    border-right: none;
+    border-top: none;
+    backgroudn-clip: padding;
+    box-shadow: inset 0px 0px 10px transparentize(lightgrey, 0.85);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 5s infinite linear;
+}
+
