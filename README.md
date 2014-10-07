@@ -1,6 +1,23 @@
 # angular-translate-gui
 
-Simple GUI to produce translation files for angular-translate more efficiently and in a controlled way
+*Currently under development - expect frequent changes*
+
+Simple GUI to produce translation files for angular-translate more efficiently and in a controlled way.
+
+It's goal is to keep track of changes in translations file during an
+agile development workflow. Frequent additions and/or changes in
+translaions files make it hard for translators (possibly non-developers)
+to know which sections need revision.
+
+As further help each translation key can be described
+through a comment and visualized by an example to provide context for
+translators.
+
+All data is stored inside a MongoDB. A 'main' language can be defined
+(currently defaults to English) which is used to track the 'dirtyness'
+of individual translation items. E.g. once an English item changes, all
+other languages are marked as 'dirty' - which means being in need of
+further revision.
 
 ## Install
 
