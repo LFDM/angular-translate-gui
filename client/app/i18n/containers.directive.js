@@ -32,8 +32,12 @@ angular.module('arethusaTranslateGuiApp').directive('containers', [
          }, 600);
        });
 
+       function easeInOutCubic(t) {
+         return t<0.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
+       }
+
        function autoScroll(ev, item) {
-         element.find('#scroller').scrollTo(item, 0, 500);
+         element.find('#scroller').scrollTo(item, 0, 1200, easeInOutCubic);
        }
 
        scope.$on('scrollToItem', autoScroll);
