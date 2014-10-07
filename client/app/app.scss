@@ -152,7 +152,7 @@ $header-size: 8.4rem;
 }
 
 .index-container {
-  background-color: #F8F8F8 !important;
+  background-color: #FCFCFC !important;
 }
 
 ul.index-list {
@@ -170,7 +170,7 @@ ul.index-list {
   }
 }
 
-// Fancy spinner
+// Fancy spinner and loading text
 
 $spinner-color: lightgrey;
 
@@ -215,6 +215,7 @@ $spinner-color: lightgrey;
   to {
     transform: rotate(360deg);
   }
+
 }
 
 .spinner {
