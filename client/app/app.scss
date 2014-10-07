@@ -183,8 +183,12 @@ $spinner-color: lightgrey;
   left: calc(50% - 30px);
 }
 
-.spinner-color {
+.spinner-text {
   color: $spinner-color;
+  width: 100%;
+  top: 35%;
+  text-align: center;
+  position: absolute;
 }
 
 .circle {
