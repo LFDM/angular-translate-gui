@@ -172,6 +172,8 @@ ul.index-list {
 
 // Fancy spinner
 
+$spinner-color: lightgrey;
+
 .spinner {
   width: 60px;
   height: 62px;
@@ -179,6 +181,10 @@ ul.index-list {
   position: absolute;
   top: 45%;
   left: calc(50% - 30px);
+}
+
+.spinner-color {
+  color: $spinner-color;
 }
 
 .circle {
@@ -189,11 +195,11 @@ ul.index-list {
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    border: 5px solid transparentize(lightgrey, 0.3);
+    border: 5px solid transparentize($spinner-color, 0.3);
     border-right: none;
     border-top: none;
     backgroudn-clip: padding;
-    box-shadow: inset 0px 0px 10px transparentize(lightgrey, 0.85);
+    box-shadow: inset 0px 0px 10px transparentize($spinner-color, 0.85);
   }
 }
 
