@@ -5,7 +5,7 @@ var Container = require('./container.model');
 
 // Get list of containers
 exports.index = function(req, res) {
-  Container.find(function (err, containers) {
+  Container.find().sort('name').exec(function (err, containers) {
     if(err) { return handleError(res, err); }
     return res.json(200, containers);
   });

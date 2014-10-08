@@ -16,14 +16,11 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexCollection', [
    return {
      restrict: 'A',
      scope: {
-       containers: '=i18nIndexCollection',
-       sort: '@'
+       containers: '=i18nIndexCollection'
      },
      link: function(scope, element) {
-       var ordering = scope.sort ? ' | orderBy: \'name\'' : '';
-
        var template = '\
-         <li ng-repeat="container in containers' + ordering + '">\
+         <li ng-repeat="container in containers">\
             <div i18n-index-item="container"/>\
          </li>\
        ';
