@@ -20,8 +20,8 @@ angular.module('arethusaTranslateGuiApp').directive('containers', [
 
        scope.$watch('showIndex', function(newVal) {
          if (newVal) {
+           scope.containerClass = 'small-8 medium-8 large-10';
            scope.itemClass = 'small-12';
-           scope.containerClass = 'small-9 large-10';
          } else {
            scope.containerClass = 'small-12';
            scope.itemClass = 'small-6';
