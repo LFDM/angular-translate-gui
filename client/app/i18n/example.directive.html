@@ -1,0 +1,18 @@
+<div style="margin-left: .5rem">
+  <md
+    class="description fade"
+    tooltip="{{ tooltipText }}"
+    tooltip-popup-delay="500"
+    tooltip-animation="fade"
+    ng-model="example">
+  </md>
+
+  <div
+    ng-show="inputOpen"
+    class="fade"
+    blind-input
+    placeholder="Enter a comment or a description here..."
+    ng-model="example"
+    type="textarea"/>
+</div>
+
