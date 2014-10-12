@@ -1,6 +1,7 @@
 <div style="margin-left: .5rem">
   <md
-    class="description fade"
+    ng-hide="adminMode"
+    class="description"
     tooltip="{{ tooltipText }}"
     tooltip-popup-delay="500"
     tooltip-animation="fade"
@@ -8,8 +9,7 @@
   </md>
 
   <div
-    ng-show="inputOpen"
-    class="fade"
+    ng-show="adminMode"
     blind-input
     placeholder="Enter a comment or a description here..."
     ng-model="example"

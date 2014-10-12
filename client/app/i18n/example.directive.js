@@ -7,29 +7,14 @@ angular.module('arethusaTranslateGuiApp').directive('example', [
      scope: {
        example: '='
      },
-     link: function(scope, element) {
-       function bind() {
-         element.on('dblclick', function() {
-           scope.inputOpen = !scope.inputOpen;
-           if (scope.inputOpen) {
-             scope.autoFocus = true;
-           }
-         });
-       }
-
-       function unbind() {
-         element.off('dblclick');
-       }
-
+     link: function(scope) {
+       // Due to the peculiarities of the blindInput directive
+       // we are using here, we need to explicitly bring a couple
+       // of things into this scope.
+       // Very ugly and not very good - but it will do in this case.
+       scope.deferredUpdate = scope.$parent.deferredUpdate;
        scope.$watch('$parent.adminMode', function(newVal) {
-         scope.tooltipText = newVal ? 'Doubleclick to edit' : '';
          scope.adminMode = newVal;
-
-         if (newVal) {
-           bind();
-         } else {
-           unbind();
-         }
        });
      },
      templateUrl: 'app/i18n/example.directive.html'
