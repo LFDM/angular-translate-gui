@@ -9,6 +9,7 @@ angular.module('arethusaTranslateGuiApp', [
   'mm.foundation',
   'infinite-scroll',
   'duScroll',
+  'yaru22.md'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

@@ -15,11 +15,7 @@
     </div>
   </p>
   <div style="margin-bottom: .2rem">
-    <span
-      blind-input
-      placeholder="Enter a comment or a description here..."
-      ng-model="container.comment"
-      type="textarea"/>
+    <span example="container.comment"/>
   </div>
   <div class="nested-container fade vertically-spaced"
     ng-repeat="value in container.values track by value._id">
