@@ -33,9 +33,9 @@ angular.module('arethusaTranslateGuiApp').service('containerHelper', [
     };
 
     this.dirtyWatch = function(scope, fn) {
-      scope.$watch('container.dirty', function(newVal) {
+      scope.$watch('container.dirty', function(newVal, oldVal) {
         scope.statusClass = newVal ? DIRTY : CLEAN;
-        if (fn) fn();
+        if (fn && newVal !== oldVal) fn();
       });
     };
 
