@@ -76,7 +76,7 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexExpander', [
 
        scope.expander = isBottom ? '▹' : setExpander(scope);
      },
-     template: '<span ng-click="toggle()">{{ expander }}</span>'
+     template: '<span class="expander" ng-click="toggle()">{{ expander }}</span>'
    };
   }
 ]);
