@@ -31,6 +31,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
           if (main || old !== bool) {
             scope.trsl.dirty = bool;
             scope.$emit(eventName, scope.trsl);
+            scope.deferredUpdate();
           }
         }
 
@@ -54,6 +55,7 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         scope.trackChange = function() {
           if (timer) $timeout.cancel(timer);
           timer = $timeout(setClean, 1000);
+          scope.deferredUpdate();
         };
 
         if (main) {
