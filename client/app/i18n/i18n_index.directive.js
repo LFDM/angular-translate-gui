@@ -51,3 +51,32 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexItem', [
    };
   }
 ]);
+
+angular.module('arethusaTranslateGuiApp').directive('i18nIndexExpander', [
+  function() {
+   function setExpander(scope) {
+     return scope.expanded ? '▾' : '▸';
+   }
+
+   return {
+     restrict: 'A',
+     link: function(scope, element) {
+       // If it has translations, it's a Value - and can therefore not have
+       // any more sub-levels.
+       var isBottom = scope.item.translations;
+
+       if (!isBottom) {
+         element.addClass('clickable');
+
+         scope.toggle = function() {
+           scope.expanded = !scope.expanded;
+           scope.expander = setExpander(scope);
+         };
+       }
+
+       scope.expander = isBottom ? '▹' : setExpander(scope);
+     },
+     template: '<span class="expander" ng-click="toggle()">{{ expander }}</span>'
+   };
+  }
+]);

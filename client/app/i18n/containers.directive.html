@@ -1,8 +1,15 @@
-<div class="scroll-container">
+<div style="height: 100%; padding-top: 300px" ng-show="rendering">
+  <div class="spinner">
+    <div class="circle"><div class="inner"></div></div>
+  </div>
+  <div class="spinner-text">Rendering data...</div>
+</div>
+
+<div class="scroll-container fade" ng-hide="rendering">
   <div class="small-12 columns" style="height: 100%">
     <div
       ng-if="showIndex"
-      class="scroll-item small-3 large-2 columns fade slide-left">
+      class="scroll-item small-4 medium-4 large-2 columns fade slide-left">
       <div i18n-index/>
     </div>
     <div
