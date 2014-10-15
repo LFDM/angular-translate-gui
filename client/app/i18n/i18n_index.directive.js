@@ -52,31 +52,63 @@ angular.module('arethusaTranslateGuiApp').directive('i18nIndexItem', [
   }
 ]);
 
+angular.module('arethusaTranslateGuiApp').directive('i18nIndexToggleAll', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function(scope) {
+        function setText() {
+          scope.text = scope.toggled ? 'Reduce all' : 'Expand all';
+        }
+
+        scope.toggle = function() {
+          scope.toggled = !scope.toggled;
+          $rootScope.$emit('toggleIndexItems', scope.toggled);
+          setText();
+        };
+
+        setText();
+      },
+      template: '<span class="clickable underline note right" ng-click="toggle()">{{ text }}</span>'
+    };
+  }
+]);
+
 angular.module('arethusaTranslateGuiApp').directive('i18nIndexExpander', [
-  function() {
-   function setExpander(scope) {
-     return scope.expanded ? '▾' : '▸';
-   }
+  '$rootScope',
+  function($rootScope) {
+    function setExpander(scope) {
+      return scope.expanded ? '▾' : '▸';
+    }
 
-   return {
-     restrict: 'A',
-     link: function(scope, element) {
-       // If it has translations, it's a Value - and can therefore not have
-       // any more sub-levels.
-       var isBottom = scope.item.translations;
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        // If it has translations, it's a Value - and can therefore not have
+        // any more sub-levels.
+        var isBottom = scope.item.translations;
 
-       if (!isBottom) {
-         element.addClass('clickable');
+        scope.expanded = scope.toggled;
 
-         scope.toggle = function() {
-           scope.expanded = !scope.expanded;
-           scope.expander = setExpander(scope);
-         };
-       }
+        if (!isBottom) {
+          element.addClass('clickable');
 
-       scope.expander = isBottom ? '▹' : setExpander(scope);
-     },
-     template: '<span class="expander" ng-click="toggle()">{{ expander }}</span>'
-   };
+          scope.toggle = function() {
+            scope.expanded = !scope.expanded;
+            scope.expander = setExpander(scope);
+          };
+
+          $rootScope.$on('toggleIndexItems', function(ev, value) {
+            scope.expanded = value;
+            scope.expander = setExpander(scope);
+          });
+        }
+
+        scope.expander = isBottom ? '▹' : setExpander(scope);
+
+      },
+      template: '<span class="expander" ng-click="toggle()">{{ expander }}</span>'
+    };
   }
 ]);
