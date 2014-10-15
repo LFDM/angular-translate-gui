@@ -5,6 +5,7 @@ angular.module('arethusaTranslateGuiApp').constant('CONFIG', {
   languages: [
     'en',
     'de',
-    'fr'
+    'fr',
+    'it'
   ]
 });
