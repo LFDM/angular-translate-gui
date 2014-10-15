@@ -8,7 +8,7 @@
         <!--ng-minlength="2"-->
         <!--ng-change="resetMaxItems()" type="search"/>-->
     <!--</span>-->
-    <span class="button small" ng-click="addContainer()">New Container</span>
+    <span class="button small" ng-click="addContainer()" ng-disabled="!adminMode">New Container</span>
     <span class="button small center success" dump-dialog>Dump!</span>
     <span class="button small right" ng-click="toggleMode()">{{ modeText }}</span>
   </div>
