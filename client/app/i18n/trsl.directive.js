@@ -54,8 +54,10 @@ angular.module('arethusaTranslateGuiApp').directive('trsl', [
         var timer;
         scope.trackChange = function() {
           if (timer) $timeout.cancel(timer);
-          timer = $timeout(setClean, 1000);
-          scope.deferredUpdate();
+          timer = $timeout(function() {
+            setClean();
+            scope.deferredUpdate();
+          }, 1000);
         };
 
         if (main) {
