@@ -168,7 +168,7 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
       return new Container(params);
     };
 
-    $scope.adminMode = true;
+    $scope.adminMode = false;
     $scope.$watch('adminMode', function(newVal) {
       $scope.modeText = newVal ? 'Admin Mode' : 'Translator Mode';
     });
