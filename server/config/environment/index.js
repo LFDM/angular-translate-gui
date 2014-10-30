@@ -40,7 +40,12 @@ var all = {
       }
     }
   },
+  dynamo: {
+    local: true,
+    endpoint: 'http://localhost:8000'
+  },
 
+  usedDb: 'dynamo' // or mongo
 };
 
 // Export the config object based on the NODE_ENV
