@@ -128,10 +128,13 @@ function seedDynamoDb() {
     vogels.dynamoDriver(dynamodb);
   }
 
-  var noop = function() {};
+
+  var errorLog = function(err) { console.log(err) };
+
+  ContainerModel.createTable(errorLog);
   for (var i=0; i < top.containers.length; i++) {
     var container = top.containers[i];
-    ContainerModel.create(container, noop);
+    ContainerModel.create(container, errorLog);
   }
 }
 
