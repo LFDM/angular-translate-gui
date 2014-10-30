@@ -2,12 +2,14 @@
 
 var vogels = require('vogels');
 
-var Test = vogels.define('Test', function(schema) {
+var Container = vogels.define('Container', function(schema) {
   schema.UUID('id', { hashKey: true });
   schema.String('name');
   schema.String('comment');
   schema.Boolean('dirty', { default: true });
   schema.List('values');
+  schema.List('containers');
 });
 
-module.exports = Test;
+Container.createTable(function() {});
+module.exports = Container;
