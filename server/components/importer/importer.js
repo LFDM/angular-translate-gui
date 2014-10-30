@@ -57,7 +57,7 @@ function parseContent(container, content, lang) {
 }
 
 function addId(obj) {
-  if (usingDynamo()) obj.id = uuid.v4();
+  if (usingDynamo()) obj._id = uuid.v4();
 }
 
 function Container(name) {

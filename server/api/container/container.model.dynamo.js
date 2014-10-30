@@ -3,7 +3,7 @@
 var vogels = require('vogels');
 
 var Container = vogels.define('Container', function(schema) {
-  schema.UUID('id', { hashKey: true });
+  schema.UUID('_id', { hashKey: true });
   schema.String('name');
   schema.String('comment');
   schema.Boolean('dirty', { default: true });
