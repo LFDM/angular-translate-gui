@@ -6,18 +6,17 @@
 
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log(process.env);
 
 var express = require('express');
 var config = require('./config/environment');
 
 if (config.usedDb === 'dynamo') {
   var vogels = require('vogels');
-  var aws = vogels.AWS;
-
-  aws.config.loadFromPath('.credentials.json');
+  console.log(vogels.AWS);
 
   if (config.dynamo.local) {
+    var aws = vogels.AWS;
+    aws.config.loadFromPath('.credentials.json');
     var dynamodb = new aws.DynamoDB({ endpoint: config.dynamo.endpoint });
     vogels.dynamoDriver(dynamodb);
   }
