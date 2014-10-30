@@ -74,6 +74,7 @@ function Container(name) {
 function Value(name) {
   this.name = name;
   this.translations = [];
+  this.dirty = true;
   addId(this);
 }
 
