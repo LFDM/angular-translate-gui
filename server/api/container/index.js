@@ -1,7 +1,12 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./container.controller');
+var config = require('../../config/environment');
+if (config.usedDb === 'dynamo') {
+  var controller = require('./container.controller.dynamo');
+} else {
+  var controller = require('./container.controller');
+}
 
 var router = express.Router();
 
