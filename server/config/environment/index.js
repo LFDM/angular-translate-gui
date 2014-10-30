@@ -41,7 +41,7 @@ var all = {
     }
   },
   dynamo: {
-    local: true,
+    local: false,
     endpoint: 'http://localhost:8000'
   },
 
