@@ -97,13 +97,15 @@ angular.module('arethusaTranslateGuiApp').controller('I18nCtrl', [
     };
 
     function parseContainers(containers, elements) {
-      for (var i = containers.length - 1; i >= 0; i--){
-        var container = containers[i];
-        var stats = addToStatsStore(container);
-        elements.push(stats);
-        parseValues(container.values, elements);
-        parseContainers(container.containers, elements);
-        elements.pop();
+      if (containers) {
+        for (var i = containers.length - 1; i >= 0; i--){
+          var container = containers[i];
+          var stats = addToStatsStore(container);
+          elements.push(stats);
+          parseValues(container.values, elements);
+          parseContainers(container.containers, elements);
+          elements.pop();
+        }
       }
     }
 
