@@ -6,14 +6,12 @@ if (!importDir) {
   process.exit();
 }
 
-var mongoose = require('mongoose');
 var fs = require('fs');
 var _  = require('lodash');
+var uuid = require('node-uuid');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var config = require('../../config/environment');
-
-var ContainerModel = require('../../api/container/container.model')
 
 var withoutNamespace = new Container('withoutNamespace');
 var top = { containers: [ withoutNamespace ] };
@@ -58,21 +56,32 @@ function parseContent(container, content, lang) {
   }
 }
 
+function addId(obj) {
+  if (usingDynamo()) obj.id = uuid.v4();
+}
+
 function Container(name) {
   this.name = name;
   this.containers = [];
   this.values = [];
 }
 
+// When using MongoDb Value and Translation will get their IDs assigned
+// automatically as they are sub-document models.
+// We don't get this behaviour with DynamoDB, therefore we generate
+// UIIDs ourselves.
+
 function Value(name) {
   this.name = name;
   this.translations = [];
+  addId(this);
 }
 
 function Translation(translation, lang) {
   this.translation = translation;
   this.lang = lang;
   this.dirty = lang !== mainLang;
+  addId(this);
 }
 
 function getContainer(parent, name) {
@@ -99,10 +108,42 @@ function addValToContainer(container, val, trsl, lang) {
   value.translations.push(new Translation(trsl, lang));
 }
 
-function seedContainers() {
+function seedMongoDb() {
+  var mongoose = require('mongoose');
+  var ContainerModel = require('../../api/container/container.model')
+
   mongoose.connect(config.mongo.uri, config.mongo.options);
   ContainerModel.create(top.containers);
   mongoose.disconnect();
+}
+
+function seedDynamoDb() {
+  var vogels = require('vogels');
+  var ContainerModel = require('../../api/container/container.model.dynamo')
+
+  vogels.AWS.config.loadFromPath('.credentials.json')
+  if (config.dynamo.local) {
+    var dynamodb = new vogels.AWS.DynamoDB({ endpoint: config.dynamo.endpoint });
+    vogels.dynamoDriver(dynamodb);
+  }
+
+  var noop = function() {};
+  for (var i=0; i < top.containers.length; i++) {
+    var container = top.containers[i];
+    ContainerModel.create(container, noop);
+  }
+}
+
+function usingDynamo() {
+  return config.usedDb === 'dynamo';
+}
+
+function seedContainers() {
+  if (usingDynamo()) {
+    seedDynamoDb();
+  } else {
+    seedMongoDb();
+  }
   console.log('DB seed successful!');
 }
 
